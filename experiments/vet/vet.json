@@ -1,0 +1,52 @@
+{
+  "records": [
+    {
+      "myc_file": "/tmp/myc-decompose/work/mycelium-fmt-myc/experiments/vet/bin/mycfmt.myc",
+      "source_file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "class": "CheckError",
+      "exit_code": 3,
+      "diagnostic": "check-error: check error in `FmtError`: unknown type `BudgetError`",
+      "non_test_items": 12,
+      "emitted_items": 4
+    },
+    {
+      "myc_file": "/tmp/myc-decompose/work/mycelium-fmt-myc/experiments/vet/lib.myc",
+      "source_file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "class": "CheckError",
+      "exit_code": 3,
+      "diagnostic": "check-error: check error in `FmtError`: unknown type `BudgetError`",
+      "non_test_items": 74,
+      "emitted_items": 14
+    }
+  ],
+  "total_non_test_items": 86,
+  "total_emitted_items": 18,
+  "total_checked_clean_items": 0,
+  "class_counts": {
+    "CheckError": 2
+  },
+  "phylum": {
+    "ran": true,
+    "ok": false,
+    "nodules": [
+      {
+        "nodule": "fmt.bin_kw.mycfmt",
+        "file": "bin/mycfmt.myc",
+        "class": "CheckError",
+        "site": "FmtError",
+        "on": null,
+        "message": "unknown type `BudgetError`"
+      },
+      {
+        "nodule": "fmt",
+        "file": "lib.myc",
+        "class": "CheckError",
+        "site": "FmtError",
+        "on": null,
+        "message": "unknown type `BudgetError`"
+      }
+    ],
+    "diagnostic": "unknown type `BudgetError`"
+  },
+  "total_checked_clean_items_phylum": 0
+}

@@ -1,0 +1,996 @@
+{
+  "gaps": [
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "line": 1,
+      "col": 1,
+      "category": "ReservedWord",
+      "rust_construct": "ReservedWord",
+      "snippet": "nodule fmt.bin.mycfmt;",
+      "reason": "derived nodule path `fmt.bin.mycfmt` has segment(s) [bin] colliding with a Mycelium reserved word — emitting them verbatim would fail to parse (`nodule fmt.bin.mycfmt;` tokenizes the colliding word as a keyword, not an identifier); each colliding segment is escaped with the `_kw` suffix (now `fmt.bin_kw.mycfmt`) rather than dropped, so distinct source files whose only differing segment is a reserved word (e.g. `l1.fuse` vs `l1.nodule`) stay distinguishable instead of both collapsing onto the same nodule path (G2/VR-5)",
+      "item_name": null
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "line": 33,
+      "col": 1,
+      "category": "Import",
+      "rust_construct": "Import",
+      "snippet": "use std :: process :: ExitCode ;",
+      "reason": "`use std.process::ExitCode` — `std.process` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2)",
+      "item_name": null
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "line": 35,
+      "col": 1,
+      "category": "Import",
+      "rust_construct": "Import",
+      "snippet": "use mycelium_cli_common :: { read_source , Args } ;",
+      "reason": "`use mycelium_cli_common::read_source` — `mycelium_cli_common` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2); `use mycelium_cli_common::Args` — `mycelium_cli_common` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2)",
+      "item_name": null
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "line": 36,
+      "col": 1,
+      "category": "Import",
+      "rust_construct": "Import",
+      "snippet": "use mycelium_fmt :: { flatten_source , format_source , format_source_readable , format_source_readable_cfg , Formatted , LayoutCfg , SpineInner , } ;",
+      "reason": "`use mycelium_fmt::flatten_source` — `flatten_source` is not among sibling `mycelium_fmt`'s successfully-emitted surface in this batch (the sibling file itself gapped it rather than emitting it). Flagged, not guessed (VR-5/G2)",
+      "item_name": "co-include:format_source,format_source_readable_cfg,Formatted,LayoutCfg,SpineInner"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "line": 36,
+      "col": 1,
+      "category": "Import",
+      "rust_construct": "Import",
+      "snippet": "use mycelium_fmt :: { flatten_source , format_source , format_source_readable , format_source_readable_cfg , Formatted , LayoutCfg , SpineInner , } ;",
+      "reason": "`use mycelium_fmt::format_source_readable` — `format_source_readable` is not among sibling `mycelium_fmt`'s successfully-emitted surface in this batch (the sibling file itself gapped it rather than emitting it). Flagged, not guessed (VR-5/G2)",
+      "item_name": "co-include:format_source,format_source_readable_cfg,Formatted,LayoutCfg,SpineInner"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "line": 40,
+      "col": 1,
+      "category": "Import",
+      "rust_construct": "Import",
+      "snippet": "use mycelium_proj :: parse_manifest ;",
+      "reason": "`use mycelium_proj::parse_manifest` — `mycelium_proj` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2)",
+      "item_name": null
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "line": 42,
+      "col": 1,
+      "category": "DeriveSatisfied",
+      "rust_construct": "DeriveSatisfied",
+      "snippet": "# [derive (Clone , Copy , PartialEq , Eq)] enum Mode { # [doc = \" Print the formatted source to stdout (default).\"] Stdout , # [doc = \" Report which files would change; write nothing; exit 1 if any differ.\"] Check , # [doc = \" Rewrite the file in place (atomically), only after a successful identity-preserving format.\"] Write , }",
+      "reason": "enum `Mode` derive(Clone) is a satisfied no-op under Mycelium's value semantics (ADR-003 — every value already copies structurally; DN-128 §6.1) — not emitted as an impl, not a gap",
+      "item_name": "Mode"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "line": 42,
+      "col": 1,
+      "category": "DeriveSatisfied",
+      "rust_construct": "DeriveSatisfied",
+      "snippet": "# [derive (Clone , Copy , PartialEq , Eq)] enum Mode { # [doc = \" Print the formatted source to stdout (default).\"] Stdout , # [doc = \" Report which files would change; write nothing; exit 1 if any differ.\"] Check , # [doc = \" Rewrite the file in place (atomically), only after a successful identity-preserving format.\"] Write , }",
+      "reason": "enum `Mode` derive(Copy) is a satisfied no-op under Mycelium's value semantics (ADR-003 — every value already copies structurally; DN-128 §6.1) — not emitted as an impl, not a gap",
+      "item_name": "Mode"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "line": 42,
+      "col": 1,
+      "category": "DeriveSatisfied",
+      "rust_construct": "DeriveSatisfied",
+      "snippet": "# [derive (Clone , Copy , PartialEq , Eq)] enum Mode { # [doc = \" Print the formatted source to stdout (default).\"] Stdout , # [doc = \" Report which files would change; write nothing; exit 1 if any differ.\"] Check , # [doc = \" Rewrite the file in place (atomically), only after a successful identity-preserving format.\"] Write , }",
+      "reason": "enum `Mode` derive(Eq): covered by co-occurring PartialEq → `fn eq_Mode` (product-row collision policy; DN-128 / ONESHOT C2) — not a second emission",
+      "item_name": "Mode"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "line": 52,
+      "col": 1,
+      "category": "MultiStmtBody",
+      "rust_construct": "MultiStmtBody",
+      "snippet": "fn usage () -> ExitCode { eprintln ! (\"usage: mycfmt [--check | --write] [--flatten | --readable [--expand-spine]] [--explain] [--config <mycelium-proj.toml>] <file.myc | ->...\") ; ExitCode :: from (64) }",
+      "reason": "function body contains a macro-invocation statement (e.g. `debug_assert!`/`println!`) — no macro system in this grammar fragment",
+      "item_name": "usage"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "line": 59,
+      "col": 1,
+      "category": "MultiStmtBody",
+      "rust_construct": "MultiStmtBody",
+      "snippet": "fn main () -> ExitCode { let mut mode = Mode :: Stdout ; let mut flatten = false ; let mut readable = false ; let mut expand_spine = false ; let mut explain = false ; let mut config : Option < String > = None ; let mut paths : Vec < String > = Vec :: new () ; let mut args = Args :: from_env () ; while let Some (a) = args . next () { match a . as_str () { \"--check\" => mode = Mode :: Check , \"--write\" => mode = Mode :: Write , \"--flatten\" => flatten = true , \"--readable\" => readable = true , \"--expand-spine\" => expand_spine = true , \"--explain\" => explain = true , \"--config\" => match args . value () { Some (p) => config = Some (p) , None => return usage () , } , \"-\" => paths . push (\"-\" . to_owned ()) , s if s . starts_with (\"--\") => return usage () , s => paths . push (s . to_owned ()) , } } if paths . is_empty () { return usage () ; } if mode == Mode :: Write && paths . iter () . any (| p | p == \"-\") { eprintln ! (\"mycfmt: --write cannot rewrite stdin; use the default (stdout) for `-`\") ; return usage () ; } if flatten && mode == Mode :: Write { eprintln ! (\"mycfmt: --flatten cannot be used with --write; the stream form is stdout-only \\\n             (pipe it to a file if needed)\") ; return usage () ; } if flatten && readable { eprintln ! (\"mycfmt: --flatten and --readable are mutually exclusive (opposite layout postures) — \\\n             pick one\") ; return usage () ; } if expand_spine && ! readable { eprintln ! (\"mycfmt: --expand-spine is a --readable house-style knob (M-976) — it requires --readable\") ; return usage () ; } let pin = match resolve_pin (config . as_deref () , & paths) { Ok (p) => p , Err (code) => return code , } ; let mut worst = 0u8 ; for path in & paths { let code = run_one (path , mode , flatten , readable , expand_spine , explain , pin . as_deref () ,) ; worst = worst . max (code) ; } ExitCode :: from (worst) }",
+      "reason": "`let` binding uses an unsupported pattern (only simple `let x = e;` is supported)",
+      "item_name": "main"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "line": 140,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Resolve the `[toolchain].format` pin from an explicit `--config`, else by discovering\"] # [doc = \" `mycelium-proj.toml` upward from the first real file path. Returns `Ok(None)` when there is no\"] # [doc = \" manifest (the built-in default applies). A malformed manifest is a hard error (exit 66/4).\"] fn resolve_pin (config : Option < & str > , paths : & [String]) -> Result < Option < String > , ExitCode > { let manifest_path = if let Some (c) = config { Some (std :: path :: PathBuf :: from (c)) } else { paths . iter () . find (| p | * p != \"-\") . and_then (| p | discover_manifest (std :: path :: Path :: new (p))) } ; let Some (mp) = manifest_path else { return Ok (None) ; } ; let text = match std :: fs :: read_to_string (& mp) { Ok (t) => t , Err (e) => { eprintln ! (\"mycfmt: io-error: {}: {e}\" , mp . display ()) ; return Err (ExitCode :: from (66)) ; } } ; match parse_manifest (& text) { Ok (m) => Ok (m . toolchain . and_then (| t | t . format)) , Err (e) => { eprintln ! (\"mycfmt: manifest-error: {}: {e}\" , mp . display ()) ; Err (ExitCode :: from (4)) } } }",
+      "reason": "`if let` has no Mycelium equivalent in this grammar fragment",
+      "item_name": "resolve_pin"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "line": 171,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Walk up from `start`'s directory looking for `mycelium-proj.toml`.\"] fn discover_manifest (start : & std :: path :: Path) -> Option < std :: path :: PathBuf > { let mut dir = start . parent () . map (std :: path :: Path :: to_path_buf) . or_else (| | std :: env :: current_dir () . ok ()) ? ; loop { let candidate = dir . join (\"mycelium-proj.toml\") ; if candidate . is_file () { return Some (candidate) ; } if ! dir . pop () { return None ; } } }",
+      "reason": "qualified type path `std :: path :: Path` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "discover_manifest"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "line": 188,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Format one path; return its exit code (contract §5).\"] fn run_one (path : & str , mode : Mode , flatten : bool , readable : bool , expand_spine : bool , explain : bool , pin : Option < & str > ,) -> u8 { let src = match read_source (\"mycfmt: io-error\" , path) { Ok (s) => s , Err (_) => return 66 , } ; let result = if flatten { flatten_source (& src , pin) } else if readable && expand_spine { let cfg = LayoutCfg { spine_inner : SpineInner :: AlwaysExpand , .. LayoutCfg :: default () } ; format_source_readable_cfg (& src , pin , cfg) } else if readable { format_source_readable (& src , pin) } else { format_source (& src , pin) } ; match result { Ok (formatted) => emit (path , & src , & formatted , mode , explain) , Err (e) => { eprintln ! (\"mycfmt: {path}: {e}\") ; e . exit_code () } } }",
+      "reason": "unsupported expression form `return 66`",
+      "item_name": "run_one"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "line": 229,
+      "col": 1,
+      "category": "MultiStmtBody",
+      "rust_construct": "MultiStmtBody",
+      "snippet": "fn emit (path : & str , src : & str , f : & Formatted , mode : Mode , explain : bool) -> u8 { if explain { eprintln ! (\"mycfmt: {path}\") ; for n in & f . notes { eprintln ! (\"  - {n}\") ; } eprintln ! (\"  (identity preserved: surface AST round-trip verified)\") ; } match mode { Mode :: Stdout => { print ! (\"{}\" , f . output) ; 0 } Mode :: Check => { if f . changed { eprintln ! (\"mycfmt: {path}: would reformat\") ; 1 } else { 0 } } Mode :: Write => { if ! f . changed { return 0 ; } match write_atomic (path , & f . output) { Ok (()) => { eprintln ! (\"mycfmt: {path}: formatted\") ; let _ = src ; 0 } Err (e) => { eprintln ! (\"mycfmt: io-error: {path}: {e}\") ; 66 } } } } }",
+      "reason": "function body has a semicolon-terminated (value-discarding) statement expression before the tail — a `let`-chain body maps only simple `let x = e;` bindings plus a single trailing expression",
+      "item_name": "emit"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "line": 269,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Write `content` to `path` atomically (temp file in the same dir, then rename) so a crash mid-write can\"] # [doc = \" never leave a partial file — the never-silent rule extended to the filesystem (G2).\"] fn write_atomic (path : & str , content : & str) -> std :: io :: Result < () > { let p = std :: path :: Path :: new (path) ; let dir = p . parent () . filter (| d | ! d . as_os_str () . is_empty ()) ; let tmp = match dir { Some (d) => d . join (format ! (\".{}.mycfmt.tmp\" , p . file_name () . and_then (| s | s . to_str ()) . unwrap_or (\"out\"))) , None => std :: path :: PathBuf :: from (format ! (\".{}.mycfmt.tmp\" , p . file_name () . and_then (| s | s . to_str ()) . unwrap_or (\"out\"))) , } ; std :: fs :: write (& tmp , content) ? ; std :: fs :: rename (& tmp , p) }",
+      "reason": "qualified type path `std :: io :: Result < () >` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "write_atomic"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 56,
+      "col": 1,
+      "category": "Import",
+      "rust_construct": "Import",
+      "snippet": "use mycelium_l1 :: ast :: { Expr , FnDecl , Hypha , ImplDecl , Item , Nodule , Pattern } ;",
+      "reason": "`use mycelium_l1.ast::Expr` — `mycelium_l1.ast` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2); `use mycelium_l1.ast::FnDecl` — `mycelium_l1.ast` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2); `use mycelium_l1.ast::Hypha` — `mycelium_l1.ast` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2); `use mycelium_l1.ast::ImplDecl` — `mycelium_l1.ast` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2); `use mycelium_l1.ast::Item` — `mycelium_l1.ast` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2); `use mycelium_l1.ast::Nodule` — `mycelium_l1.ast` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2); `use mycelium_l1.ast::Pattern` — `mycelium_l1.ast` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2)",
+      "item_name": null
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 57,
+      "col": 1,
+      "category": "Import",
+      "rust_construct": "Import",
+      "snippet": "use mycelium_l1 :: lexer :: { lex_with_comments , Comment } ;",
+      "reason": "`use mycelium_l1.lexer::lex_with_comments` — `mycelium_l1.lexer` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2); `use mycelium_l1.lexer::Comment` — `mycelium_l1.lexer` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2)",
+      "item_name": null
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 58,
+      "col": 1,
+      "category": "Import",
+      "rust_construct": "Import",
+      "snippet": "use mycelium_l1 :: token :: { Spanned , Tok } ;",
+      "reason": "`use mycelium_l1.token::Spanned` — `mycelium_l1.token` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2); `use mycelium_l1.token::Tok` — `mycelium_l1.token` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2)",
+      "item_name": null
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 59,
+      "col": 1,
+      "category": "Import",
+      "rust_construct": "Import",
+      "snippet": "use mycelium_l1 :: { expand_to_source , parse , parse_phylum } ;",
+      "reason": "`use mycelium_l1::expand_to_source` — `mycelium_l1` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2); `use mycelium_l1::parse` — `mycelium_l1` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2); `use mycelium_l1::parse_phylum` — `mycelium_l1` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2)",
+      "item_name": null
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 60,
+      "col": 1,
+      "category": "Import",
+      "rust_construct": "Import",
+      "snippet": "use mycelium_proj :: { parse_header , Deprecated , StructuredHeader } ;",
+      "reason": "`use mycelium_proj::parse_header` — `mycelium_proj` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2); `use mycelium_proj::Deprecated` — `mycelium_proj` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2); `use mycelium_proj::StructuredHeader` — `mycelium_proj` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2)",
+      "item_name": null
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 61,
+      "col": 1,
+      "category": "Import",
+      "rust_construct": "Import",
+      "snippet": "use mycelium_workstack :: { ensure_sufficient_stack , BudgetError , ProcessArena , RecursionBudget } ;",
+      "reason": "`use mycelium_workstack::ensure_sufficient_stack` — `mycelium_workstack` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2); `use mycelium_workstack::BudgetError` — `mycelium_workstack` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2); `use mycelium_workstack::ProcessArena` — `mycelium_workstack` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2); `use mycelium_workstack::RecursionBudget` — `mycelium_workstack` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2)",
+      "item_name": null
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 62,
+      "col": 1,
+      "category": "Import",
+      "rust_construct": "Import",
+      "snippet": "use std :: collections :: HashMap ;",
+      "reason": "`use std.collections::HashMap` — `std.collections` is not a sibling module OR sibling phylum transpiled in this same batch (an external crate, `std`, or simply out of this batch's target set). Flagged, not guessed (VR-5/G2)",
+      "item_name": null
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 64,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" The formatter spelling/version this build implements. The `[toolchain].format` pin (M-359) is a\"] # [doc = \" **hard pin** (M-364 §10.3): a mismatch is refused, never formatted with rules the project didn't ask\"] # [doc = \" for (G2).\"] pub const MYCFMT_VERSION : & str = \"mycfmt-0\" ;",
+      "reason": "top-level `const MYCFMT_VERSION` — co-emit (ORACLE-R1 A4) only covers plain unsigned integer types (`u8`/`u16`/`u32`/`u64`/`u128`/`usize`); other types have no const item production and no faithful zero-arg-fn encoding (gap, never fabricate)",
+      "item_name": "MYCFMT_VERSION"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 69,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" RFC-0041 §4.2/§9 process-wide arena ceiling `mycfmt`'s render family reserves against before\"] # [doc = \" rendering. **Declared** — an asserted operational default, not a measured bound: a `.myc` source\"] # [doc = \" is untrusted input (a vendored/spore-resolved dependency, or a CI run over an untrusted PR diff —\"] # [doc = \" RFC-0041 §5 untrusted-input coverage), and every concurrent format call (batch `mycfmt --check`\"] # [doc = \" over a project, or a future LSP format-on-save) charges the *same* process-global counter\"] # [doc = \" ([`mycelium_workstack::current_process_bytes`]), so the sum across concurrent renders is what\"] # [doc = \" this ceiling bounds. Each consuming crate declares its own operational default (consumer-side\"] # [doc = \" wiring); a single shared constant across the workspace is a follow-up centralization item, not\"] # [doc = \" introduced silently here (`docs/notes/W7-arena-coverage-audit.md`).\"] const PROCESS_ARENA_CEILING_BYTES : u64 = 256 * 1024 * 1024 ;",
+      "reason": "top-level `const PROCESS_ARENA_CEILING_BYTES` — initializer is not a decidable non-negative integer literal or a known workspace-floor path (e.g. `RecursionBudget::DEFAULT_DEPTH_LIMIT`); no const item production in the grammar, and co-emit refuses to invent a value (ORACLE-R1 A4 / VR-5)",
+      "item_name": "PROCESS_ARENA_CEILING_BYTES"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 102,
+      "col": 1,
+      "category": "DeriveSatisfied",
+      "rust_construct": "DeriveSatisfied",
+      "snippet": "# [doc = \" The layout style a format pass emits (M-974). Both styles are **identity-preserving projections**\"] # [doc = \" (RFC-0001 §4.6/§4.8) — they differ only in *presentation*, never in the surface AST (C1). The\"] # [doc = \" distinction is the inverse posture of `--flatten`: `Compact` keeps each item's body inline (the\"] # [doc = \" original mycfmt-0 canonical form — the machine-leaning default retained for `examples/` and any\"] # [doc = \" generic `.myc` root); `Readable` breaks long argument/field/variant segments across lines with\"] # [doc = \" line breaks after commas for human-authored source (the `lib/std/*.myc` canonical — DN-82).\"] # [derive (Debug , Clone , Copy , PartialEq , Eq , Default)] pub enum Style { # [doc = \" The original mycfmt-0 canonical form: item bodies rendered inline (one expression per line).\"] # [default] Compact , # [doc = \" The human-readable multi-line form (M-974/DN-82): long segments wrap after commas / `|`,\"] # [doc = \" nested structure indents, short segments stay inline (the [`READABLE_WIDTH`] heuristic).\"] Readable , }",
+      "reason": "enum `Style` derive(Clone) is a satisfied no-op under Mycelium's value semantics (ADR-003 — every value already copies structurally; DN-128 §6.1) — not emitted as an impl, not a gap",
+      "item_name": "Style"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 102,
+      "col": 1,
+      "category": "DeriveSatisfied",
+      "rust_construct": "DeriveSatisfied",
+      "snippet": "# [doc = \" The layout style a format pass emits (M-974). Both styles are **identity-preserving projections**\"] # [doc = \" (RFC-0001 §4.6/§4.8) — they differ only in *presentation*, never in the surface AST (C1). The\"] # [doc = \" distinction is the inverse posture of `--flatten`: `Compact` keeps each item's body inline (the\"] # [doc = \" original mycfmt-0 canonical form — the machine-leaning default retained for `examples/` and any\"] # [doc = \" generic `.myc` root); `Readable` breaks long argument/field/variant segments across lines with\"] # [doc = \" line breaks after commas for human-authored source (the `lib/std/*.myc` canonical — DN-82).\"] # [derive (Debug , Clone , Copy , PartialEq , Eq , Default)] pub enum Style { # [doc = \" The original mycfmt-0 canonical form: item bodies rendered inline (one expression per line).\"] # [default] Compact , # [doc = \" The human-readable multi-line form (M-974/DN-82): long segments wrap after commas / `|`,\"] # [doc = \" nested structure indents, short segments stay inline (the [`READABLE_WIDTH`] heuristic).\"] Readable , }",
+      "reason": "enum `Style` derive(Copy) is a satisfied no-op under Mycelium's value semantics (ADR-003 — every value already copies structurally; DN-128 §6.1) — not emitted as an impl, not a gap",
+      "item_name": "Style"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 102,
+      "col": 1,
+      "category": "DeriveSatisfied",
+      "rust_construct": "DeriveSatisfied",
+      "snippet": "# [doc = \" The layout style a format pass emits (M-974). Both styles are **identity-preserving projections**\"] # [doc = \" (RFC-0001 §4.6/§4.8) — they differ only in *presentation*, never in the surface AST (C1). The\"] # [doc = \" distinction is the inverse posture of `--flatten`: `Compact` keeps each item's body inline (the\"] # [doc = \" original mycfmt-0 canonical form — the machine-leaning default retained for `examples/` and any\"] # [doc = \" generic `.myc` root); `Readable` breaks long argument/field/variant segments across lines with\"] # [doc = \" line breaks after commas for human-authored source (the `lib/std/*.myc` canonical — DN-82).\"] # [derive (Debug , Clone , Copy , PartialEq , Eq , Default)] pub enum Style { # [doc = \" The original mycfmt-0 canonical form: item bodies rendered inline (one expression per line).\"] # [default] Compact , # [doc = \" The human-readable multi-line form (M-974/DN-82): long segments wrap after commas / `|`,\"] # [doc = \" nested structure indents, short segments stay inline (the [`READABLE_WIDTH`] heuristic).\"] Readable , }",
+      "reason": "enum `Style` derive(Eq): covered by co-occurring PartialEq → `fn eq_Style` (product-row collision policy; DN-128 / ONESHOT C2) — not a second emission",
+      "item_name": "Style"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 102,
+      "col": 1,
+      "category": "DeriveAttr",
+      "rust_construct": "DeriveAttr",
+      "snippet": "# [doc = \" The layout style a format pass emits (M-974). Both styles are **identity-preserving projections**\"] # [doc = \" (RFC-0001 §4.6/§4.8) — they differ only in *presentation*, never in the surface AST (C1). The\"] # [doc = \" distinction is the inverse posture of `--flatten`: `Compact` keeps each item's body inline (the\"] # [doc = \" original mycfmt-0 canonical form — the machine-leaning default retained for `examples/` and any\"] # [doc = \" generic `.myc` root); `Readable` breaks long argument/field/variant segments across lines with\"] # [doc = \" line breaks after commas for human-authored source (the `lib/std/*.myc` canonical — DN-82).\"] # [derive (Debug , Clone , Copy , PartialEq , Eq , Default)] pub enum Style { # [doc = \" The original mycfmt-0 canonical form: item bodies rendered inline (one expression per line).\"] # [default] Compact , # [doc = \" The human-readable multi-line form (M-974/DN-82): long segments wrap after commas / `|`,\"] # [doc = \" nested structure indents, short segments stay inline (the [`READABLE_WIDTH`] heuristic).\"] Readable , }",
+      "reason": "enum `Style` derive(...) names Default not in the DN-128 enum-derive set this leaf builds (Debug/PartialEq/Clone/Copy recognized; bare Eq is a satisfied co-occurrence note; Hash/PartialOrd/Ord/Default stay product-only for now) — dropped, no confirmed Mycelium surface",
+      "item_name": "Style"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 118,
+      "col": 1,
+      "category": "DeriveSatisfied",
+      "rust_construct": "DeriveSatisfied",
+      "snippet": "# [doc = \" How a right-nested same-head chain (Cons/GLCons/TCons/bool_and/cat …) lays out its per-link\"] # [doc = \" **inner** (non-recursive / leading) arguments under the Shape-Dispatched Readable rules (M-976 /\"] # [doc = \" DN-82). BOTH styles keep the spine **flat** — every link at ONE fixed indent, the terminal on\"] # [doc = \" its own line, all closers coalesced (R1/R5) — so both kill the deepening-Cons pyramid; they\"] # [doc = \" differ ONLY in whether a fitting inner call stays inline.\"] # [derive (Debug , Clone , Copy , PartialEq , Eq , Default)] pub enum SpineInner { # [doc = \" **Compact (default).** A leading argument that fits under [`LayoutCfg::width`] at its column\"] # [doc = \" stays inline (the confirmed-good canonical rendering of `matrix()`/`guarantee_matrix()`); an\"] # [doc = \" overflowing leading arg blocks per R2, spine indent unchanged.\"] # [default] InlineWhenFits , # [doc = \" **Expanded house style.** The spine STILL stays flat (each link at one indent, no pyramid),\"] # [doc = \" but every inner nested call is broken onto its own lines (block-indented per R2) even when it\"] # [doc = \" would fit. Both styles are behavior-neutral (C1/C2); this one trades density for\"] # [doc = \" per-argument column comparability.\"] AlwaysExpand , }",
+      "reason": "enum `SpineInner` derive(Clone) is a satisfied no-op under Mycelium's value semantics (ADR-003 — every value already copies structurally; DN-128 §6.1) — not emitted as an impl, not a gap",
+      "item_name": "SpineInner"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 118,
+      "col": 1,
+      "category": "DeriveSatisfied",
+      "rust_construct": "DeriveSatisfied",
+      "snippet": "# [doc = \" How a right-nested same-head chain (Cons/GLCons/TCons/bool_and/cat …) lays out its per-link\"] # [doc = \" **inner** (non-recursive / leading) arguments under the Shape-Dispatched Readable rules (M-976 /\"] # [doc = \" DN-82). BOTH styles keep the spine **flat** — every link at ONE fixed indent, the terminal on\"] # [doc = \" its own line, all closers coalesced (R1/R5) — so both kill the deepening-Cons pyramid; they\"] # [doc = \" differ ONLY in whether a fitting inner call stays inline.\"] # [derive (Debug , Clone , Copy , PartialEq , Eq , Default)] pub enum SpineInner { # [doc = \" **Compact (default).** A leading argument that fits under [`LayoutCfg::width`] at its column\"] # [doc = \" stays inline (the confirmed-good canonical rendering of `matrix()`/`guarantee_matrix()`); an\"] # [doc = \" overflowing leading arg blocks per R2, spine indent unchanged.\"] # [default] InlineWhenFits , # [doc = \" **Expanded house style.** The spine STILL stays flat (each link at one indent, no pyramid),\"] # [doc = \" but every inner nested call is broken onto its own lines (block-indented per R2) even when it\"] # [doc = \" would fit. Both styles are behavior-neutral (C1/C2); this one trades density for\"] # [doc = \" per-argument column comparability.\"] AlwaysExpand , }",
+      "reason": "enum `SpineInner` derive(Copy) is a satisfied no-op under Mycelium's value semantics (ADR-003 — every value already copies structurally; DN-128 §6.1) — not emitted as an impl, not a gap",
+      "item_name": "SpineInner"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 118,
+      "col": 1,
+      "category": "DeriveSatisfied",
+      "rust_construct": "DeriveSatisfied",
+      "snippet": "# [doc = \" How a right-nested same-head chain (Cons/GLCons/TCons/bool_and/cat …) lays out its per-link\"] # [doc = \" **inner** (non-recursive / leading) arguments under the Shape-Dispatched Readable rules (M-976 /\"] # [doc = \" DN-82). BOTH styles keep the spine **flat** — every link at ONE fixed indent, the terminal on\"] # [doc = \" its own line, all closers coalesced (R1/R5) — so both kill the deepening-Cons pyramid; they\"] # [doc = \" differ ONLY in whether a fitting inner call stays inline.\"] # [derive (Debug , Clone , Copy , PartialEq , Eq , Default)] pub enum SpineInner { # [doc = \" **Compact (default).** A leading argument that fits under [`LayoutCfg::width`] at its column\"] # [doc = \" stays inline (the confirmed-good canonical rendering of `matrix()`/`guarantee_matrix()`); an\"] # [doc = \" overflowing leading arg blocks per R2, spine indent unchanged.\"] # [default] InlineWhenFits , # [doc = \" **Expanded house style.** The spine STILL stays flat (each link at one indent, no pyramid),\"] # [doc = \" but every inner nested call is broken onto its own lines (block-indented per R2) even when it\"] # [doc = \" would fit. Both styles are behavior-neutral (C1/C2); this one trades density for\"] # [doc = \" per-argument column comparability.\"] AlwaysExpand , }",
+      "reason": "enum `SpineInner` derive(Eq): covered by co-occurring PartialEq → `fn eq_SpineInner` (product-row collision policy; DN-128 / ONESHOT C2) — not a second emission",
+      "item_name": "SpineInner"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 118,
+      "col": 1,
+      "category": "DeriveAttr",
+      "rust_construct": "DeriveAttr",
+      "snippet": "# [doc = \" How a right-nested same-head chain (Cons/GLCons/TCons/bool_and/cat …) lays out its per-link\"] # [doc = \" **inner** (non-recursive / leading) arguments under the Shape-Dispatched Readable rules (M-976 /\"] # [doc = \" DN-82). BOTH styles keep the spine **flat** — every link at ONE fixed indent, the terminal on\"] # [doc = \" its own line, all closers coalesced (R1/R5) — so both kill the deepening-Cons pyramid; they\"] # [doc = \" differ ONLY in whether a fitting inner call stays inline.\"] # [derive (Debug , Clone , Copy , PartialEq , Eq , Default)] pub enum SpineInner { # [doc = \" **Compact (default).** A leading argument that fits under [`LayoutCfg::width`] at its column\"] # [doc = \" stays inline (the confirmed-good canonical rendering of `matrix()`/`guarantee_matrix()`); an\"] # [doc = \" overflowing leading arg blocks per R2, spine indent unchanged.\"] # [default] InlineWhenFits , # [doc = \" **Expanded house style.** The spine STILL stays flat (each link at one indent, no pyramid),\"] # [doc = \" but every inner nested call is broken onto its own lines (block-indented per R2) even when it\"] # [doc = \" would fit. Both styles are behavior-neutral (C1/C2); this one trades density for\"] # [doc = \" per-argument column comparability.\"] AlwaysExpand , }",
+      "reason": "enum `SpineInner` derive(...) names Default not in the DN-128 enum-derive set this leaf builds (Debug/PartialEq/Clone/Copy recognized; bare Eq is a satisfied co-occurrence note; Hash/PartialOrd/Ord/Default stay product-only for now) — dropped, no confirmed Mycelium surface",
+      "item_name": "SpineInner"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 137,
+      "col": 1,
+      "category": "NamedFieldDrop",
+      "rust_construct": "NamedFieldDrop",
+      "snippet": "# [doc = \" Presentation tunables for the readable layout (M-976 / DN-82). All fields are **presentation-only**\"] # [doc = \" and identity-preserving (C1/C2) — a `LayoutCfg` never changes the surface AST, only whitespace.\"] # [doc = \"\"] # [doc = \" `width` defaults to [`READABLE_WIDTH`] (100 — rustfmt-aligned `Declared` threshold); it is the\"] # [doc = \" SOLE inline-vs-break trigger (R0). `spine_inner` selects the house style for same-head chains\"] # [doc = \" (R1). [`LayoutCfg::default`] is the compact default the `lib/std` canonical form uses.\"] # [derive (Debug , Clone , Copy , PartialEq , Eq)] pub struct LayoutCfg { # [doc = \" The single break threshold (R0). Chars, not bytes, measured at a node's own indent.\"] pub width : usize , # [doc = \" Same-head-chain inner-argument layout (R1): compact (default) vs expanded house style.\"] pub spine_inner : SpineInner , }",
+      "reason": "struct `LayoutCfg` named field(s) `width, spine_inner` emitted positionally as `LayoutCfg(Binary{64}, SpineInner)` — Mycelium's `constructor` is positional-only (no record surface); product structure preserved, field names dropped (matches `lib/std/*.myc` hand-ports)",
+      "item_name": "LayoutCfg"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 137,
+      "col": 1,
+      "category": "DeriveSatisfied",
+      "rust_construct": "DeriveSatisfied",
+      "snippet": "# [doc = \" Presentation tunables for the readable layout (M-976 / DN-82). All fields are **presentation-only**\"] # [doc = \" and identity-preserving (C1/C2) — a `LayoutCfg` never changes the surface AST, only whitespace.\"] # [doc = \"\"] # [doc = \" `width` defaults to [`READABLE_WIDTH`] (100 — rustfmt-aligned `Declared` threshold); it is the\"] # [doc = \" SOLE inline-vs-break trigger (R0). `spine_inner` selects the house style for same-head chains\"] # [doc = \" (R1). [`LayoutCfg::default`] is the compact default the `lib/std` canonical form uses.\"] # [derive (Debug , Clone , Copy , PartialEq , Eq)] pub struct LayoutCfg { # [doc = \" The single break threshold (R0). Chars, not bytes, measured at a node's own indent.\"] pub width : usize , # [doc = \" Same-head-chain inner-argument layout (R1): compact (default) vs expanded house style.\"] pub spine_inner : SpineInner , }",
+      "reason": "struct `LayoutCfg` derive(Clone) is a satisfied no-op under Mycelium's value semantics (ADR-003 — every value already copies structurally; DN-128 §6.1) — not emitted as an impl, not a gap",
+      "item_name": "LayoutCfg"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 137,
+      "col": 1,
+      "category": "DeriveSatisfied",
+      "rust_construct": "DeriveSatisfied",
+      "snippet": "# [doc = \" Presentation tunables for the readable layout (M-976 / DN-82). All fields are **presentation-only**\"] # [doc = \" and identity-preserving (C1/C2) — a `LayoutCfg` never changes the surface AST, only whitespace.\"] # [doc = \"\"] # [doc = \" `width` defaults to [`READABLE_WIDTH`] (100 — rustfmt-aligned `Declared` threshold); it is the\"] # [doc = \" SOLE inline-vs-break trigger (R0). `spine_inner` selects the house style for same-head chains\"] # [doc = \" (R1). [`LayoutCfg::default`] is the compact default the `lib/std` canonical form uses.\"] # [derive (Debug , Clone , Copy , PartialEq , Eq)] pub struct LayoutCfg { # [doc = \" The single break threshold (R0). Chars, not bytes, measured at a node's own indent.\"] pub width : usize , # [doc = \" Same-head-chain inner-argument layout (R1): compact (default) vs expanded house style.\"] pub spine_inner : SpineInner , }",
+      "reason": "struct `LayoutCfg` derive(Copy) is a satisfied no-op under Mycelium's value semantics (ADR-003 — every value already copies structurally; DN-128 §6.1) — not emitted as an impl, not a gap",
+      "item_name": "LayoutCfg"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 137,
+      "col": 1,
+      "category": "DeriveAttr",
+      "rust_construct": "DeriveAttr",
+      "snippet": "# [doc = \" Presentation tunables for the readable layout (M-976 / DN-82). All fields are **presentation-only**\"] # [doc = \" and identity-preserving (C1/C2) — a `LayoutCfg` never changes the surface AST, only whitespace.\"] # [doc = \"\"] # [doc = \" `width` defaults to [`READABLE_WIDTH`] (100 — rustfmt-aligned `Declared` threshold); it is the\"] # [doc = \" SOLE inline-vs-break trigger (R0). `spine_inner` selects the house style for same-head chains\"] # [doc = \" (R1). [`LayoutCfg::default`] is the compact default the `lib/std` canonical form uses.\"] # [derive (Debug , Clone , Copy , PartialEq , Eq)] pub struct LayoutCfg { # [doc = \" The single break threshold (R0). Chars, not bytes, measured at a node's own indent.\"] pub width : usize , # [doc = \" Same-head-chain inner-argument layout (R1): compact (default) vs expanded house style.\"] pub spine_inner : SpineInner , }",
+      "reason": "struct `LayoutCfg` derive(...) names Eq not in the DN-128 standard-derive set this leaf builds (Debug/Default/Clone/Copy/PartialEq/PartialOrd/Hash all recognized; bare Eq/Ord are deliberately NOT recognized — see emit/derives/mod.rs::TABLE's doc for why) — dropped, no confirmed Mycelium surface",
+      "item_name": "LayoutCfg"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 160,
+      "col": 1,
+      "category": "NamedFieldDrop",
+      "rust_construct": "NamedFieldDrop",
+      "snippet": "# [doc = \" A successful format result.\"] # [doc = \"\"] # [doc = \" `Default` is the empty result (no output, unchanged, no notes) — an additive constructor\"] # [doc = \" convenience (M-644); the canonical \\\"ends with one newline\\\" output is produced by\"] # [doc = \" [`format_source`], not by `Default`/`From`.\"] # [derive (Debug , Clone , PartialEq , Eq , Default)] pub struct Formatted { # [doc = \" The output text. For a value produced by [`format_source`] this is the **canonical** form and\"] # [doc = \" always ends with exactly one newline; the additive `Default` / `From<String>` constructors do\"] # [doc = \" **not** normalize (M-644), so a hand-built `Formatted` may not carry that invariant.\"] pub output : String , # [doc = \" Whether the output differs from the input (drives `--check`).\"] pub changed : bool , # [doc = \" The normalizations applied, named for `EXPLAIN` (no black box).\"] pub notes : Vec < String > , }",
+      "reason": "struct `Formatted` named field(s) `output, changed, notes` emitted positionally as `Formatted(Bytes, Bool, Vec[Bytes])` — Mycelium's `constructor` is positional-only (no record surface); product structure preserved, field names dropped (matches `lib/std/*.myc` hand-ports)",
+      "item_name": "Formatted"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 160,
+      "col": 1,
+      "category": "DeriveSatisfied",
+      "rust_construct": "DeriveSatisfied",
+      "snippet": "# [doc = \" A successful format result.\"] # [doc = \"\"] # [doc = \" `Default` is the empty result (no output, unchanged, no notes) — an additive constructor\"] # [doc = \" convenience (M-644); the canonical \\\"ends with one newline\\\" output is produced by\"] # [doc = \" [`format_source`], not by `Default`/`From`.\"] # [derive (Debug , Clone , PartialEq , Eq , Default)] pub struct Formatted { # [doc = \" The output text. For a value produced by [`format_source`] this is the **canonical** form and\"] # [doc = \" always ends with exactly one newline; the additive `Default` / `From<String>` constructors do\"] # [doc = \" **not** normalize (M-644), so a hand-built `Formatted` may not carry that invariant.\"] pub output : String , # [doc = \" Whether the output differs from the input (drives `--check`).\"] pub changed : bool , # [doc = \" The normalizations applied, named for `EXPLAIN` (no black box).\"] pub notes : Vec < String > , }",
+      "reason": "struct `Formatted` derive(Clone) is a satisfied no-op under Mycelium's value semantics (ADR-003 — every value already copies structurally; DN-128 §6.1) — not emitted as an impl, not a gap",
+      "item_name": "Formatted"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 160,
+      "col": 1,
+      "category": "DeriveAttr",
+      "rust_construct": "DeriveAttr",
+      "snippet": "# [doc = \" A successful format result.\"] # [doc = \"\"] # [doc = \" `Default` is the empty result (no output, unchanged, no notes) — an additive constructor\"] # [doc = \" convenience (M-644); the canonical \\\"ends with one newline\\\" output is produced by\"] # [doc = \" [`format_source`], not by `Default`/`From`.\"] # [derive (Debug , Clone , PartialEq , Eq , Default)] pub struct Formatted { # [doc = \" The output text. For a value produced by [`format_source`] this is the **canonical** form and\"] # [doc = \" always ends with exactly one newline; the additive `Default` / `From<String>` constructors do\"] # [doc = \" **not** normalize (M-644), so a hand-built `Formatted` may not carry that invariant.\"] pub output : String , # [doc = \" Whether the output differs from the input (drives `--check`).\"] pub changed : bool , # [doc = \" The normalizations applied, named for `EXPLAIN` (no black box).\"] pub notes : Vec < String > , }",
+      "reason": "struct `Formatted` derive(...) names Eq not in the DN-128 standard-derive set this leaf builds (Debug/Default/Clone/Copy/PartialEq/PartialOrd/Hash all recognized; bare Eq/Ord are deliberately NOT recognized — see emit/derives/mod.rs::TABLE's doc for why) — dropped, no confirmed Mycelium surface",
+      "item_name": "Formatted"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 177,
+      "col": 1,
+      "category": "Impl",
+      "rust_construct": "Impl",
+      "snippet": "impl From < String > for Formatted { # [doc = \" Lift a raw output string into a [`Formatted`] (M-644 ergonomics): `changed` is `false` and\"] # [doc = \" `notes` is empty — a trivial wrapper for callers/tests that already hold canonical text.\"] # [doc = \" `format_source` is the path that computes `changed`/`notes`; this does not.\"] fn from (output : String) -> Self { Self { output , changed : false , notes : Vec :: new () , } } }",
+      "reason": "trait-impl of non-prelude trait `From` — no ambient trait definition and synthetic trait emission is refused (DN-34 §8.8 / DN-122 MVP); gapped the whole impl so the residual cannot file-poison myc-check (G2; express gap-close 2026-07-16)",
+      "item_name": "Formatted"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 190,
+      "col": 1,
+      "category": "DeriveAttr",
+      "rust_construct": "DeriveAttr",
+      "snippet": "# [doc = \" A formatting refusal — never a partial rewrite (G2). Each maps to a CLI exit code.\"] # [doc = \"\"] # [doc = \" `#[non_exhaustive]`: new refusal kinds may be added without a breaking change — an external\"] # [doc = \" exhaustive `match` must carry a `_` arm (M-644; additive — no variant removed).\"] # [derive (Debug , Clone , PartialEq , Eq)] # [non_exhaustive] pub enum FmtError { # [doc = \" Input is not a valid `.myc` program (exit 2).\"] Parse (String) , # [doc = \" A malformed `// nodule:` / `// @key:` header (exit 3).\"] Header (String) , # [doc = \" A construct outside the round-trip-safe v0 scope, or a `[toolchain].format` pin mismatch (exit 4).\"] OutOfScope (String) , # [doc = \" **RFC-0041 §4.2/§9 (W7 process-arena coverage).** The pre-render reservation against the\"] # [doc = \" shared process-wide memory arena would exceed its ceiling (exit 5) — refused rather than let\"] # [doc = \" this render's memory join an unbounded concurrent sum with other in-flight passes (batch\"] # [doc = \" `mycfmt` runs, a future LSP format-on-save). Never a partial rewrite (G2), same as every other\"] # [doc = \" `FmtError` variant.\"] OutOfBudget (BudgetError) , }",
+      "reason": "dropped non-doc non-derive attribute(s) on enum `FmtError`: # [non_exhaustive]",
+      "item_name": "FmtError"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 190,
+      "col": 1,
+      "category": "DeriveSatisfied",
+      "rust_construct": "DeriveSatisfied",
+      "snippet": "# [doc = \" A formatting refusal — never a partial rewrite (G2). Each maps to a CLI exit code.\"] # [doc = \"\"] # [doc = \" `#[non_exhaustive]`: new refusal kinds may be added without a breaking change — an external\"] # [doc = \" exhaustive `match` must carry a `_` arm (M-644; additive — no variant removed).\"] # [derive (Debug , Clone , PartialEq , Eq)] # [non_exhaustive] pub enum FmtError { # [doc = \" Input is not a valid `.myc` program (exit 2).\"] Parse (String) , # [doc = \" A malformed `// nodule:` / `// @key:` header (exit 3).\"] Header (String) , # [doc = \" A construct outside the round-trip-safe v0 scope, or a `[toolchain].format` pin mismatch (exit 4).\"] OutOfScope (String) , # [doc = \" **RFC-0041 §4.2/§9 (W7 process-arena coverage).** The pre-render reservation against the\"] # [doc = \" shared process-wide memory arena would exceed its ceiling (exit 5) — refused rather than let\"] # [doc = \" this render's memory join an unbounded concurrent sum with other in-flight passes (batch\"] # [doc = \" `mycfmt` runs, a future LSP format-on-save). Never a partial rewrite (G2), same as every other\"] # [doc = \" `FmtError` variant.\"] OutOfBudget (BudgetError) , }",
+      "reason": "enum `FmtError` derive(Clone) is a satisfied no-op under Mycelium's value semantics (ADR-003 — every value already copies structurally; DN-128 §6.1) — not emitted as an impl, not a gap",
+      "item_name": "FmtError"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 190,
+      "col": 1,
+      "category": "DeriveSatisfied",
+      "rust_construct": "DeriveSatisfied",
+      "snippet": "# [doc = \" A formatting refusal — never a partial rewrite (G2). Each maps to a CLI exit code.\"] # [doc = \"\"] # [doc = \" `#[non_exhaustive]`: new refusal kinds may be added without a breaking change — an external\"] # [doc = \" exhaustive `match` must carry a `_` arm (M-644; additive — no variant removed).\"] # [derive (Debug , Clone , PartialEq , Eq)] # [non_exhaustive] pub enum FmtError { # [doc = \" Input is not a valid `.myc` program (exit 2).\"] Parse (String) , # [doc = \" A malformed `// nodule:` / `// @key:` header (exit 3).\"] Header (String) , # [doc = \" A construct outside the round-trip-safe v0 scope, or a `[toolchain].format` pin mismatch (exit 4).\"] OutOfScope (String) , # [doc = \" **RFC-0041 §4.2/§9 (W7 process-arena coverage).** The pre-render reservation against the\"] # [doc = \" shared process-wide memory arena would exceed its ceiling (exit 5) — refused rather than let\"] # [doc = \" this render's memory join an unbounded concurrent sum with other in-flight passes (batch\"] # [doc = \" `mycfmt` runs, a future LSP format-on-save). Never a partial rewrite (G2), same as every other\"] # [doc = \" `FmtError` variant.\"] OutOfBudget (BudgetError) , }",
+      "reason": "enum `FmtError` derive(Eq): covered by co-occurring PartialEq → `fn eq_FmtError` (product-row collision policy; DN-128 / ONESHOT C2) — not a second emission",
+      "item_name": "FmtError"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 211,
+      "col": 1,
+      "category": "DeriveAttr",
+      "rust_construct": "DeriveAttr",
+      "snippet": "impl FmtError { # [doc = \" The CLI exit code for this refusal (contract §5).\"] # [must_use] pub fn exit_code (& self) -> u8 { match self { FmtError :: Parse (_) => 2 , FmtError :: Header (_) => 3 , FmtError :: OutOfScope (_) => 4 , FmtError :: OutOfBudget (_) => 5 , } } }",
+      "reason": "dropped non-doc attribute(s) on method `exit_code`: # [must_use]",
+      "item_name": "impl FmtError"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 224,
+      "col": 1,
+      "category": "Impl",
+      "rust_construct": "Impl",
+      "snippet": "impl std :: fmt :: Display for FmtError { fn fmt (& self , f : & mut std :: fmt :: Formatter < '_ >) -> std :: fmt :: Result { match self { FmtError :: Parse (m) => write ! (f , \"parse-error: {m}\") , FmtError :: Header (m) => write ! (f , \"header-error: {m}\") , FmtError :: OutOfScope (m) => write ! (f , \"refused: {m}\") , FmtError :: OutOfBudget (e) => { write ! (f , \"refused (RFC-0041 §4.2 process-arena ceiling): {e}\") } } } }",
+      "reason": "trait-impl of non-prelude trait `Display` — no ambient trait definition and synthetic trait emission is refused (DN-34 §8.8 / DN-122 MVP); gapped the whole impl so the residual cannot file-poison myc-check (G2; express gap-close 2026-07-16)",
+      "item_name": "FmtError"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 237,
+      "col": 1,
+      "category": "Impl",
+      "rust_construct": "Impl",
+      "snippet": "impl std :: error :: Error for FmtError { fn source (& self) -> Option < & (dyn std :: error :: Error + 'static) > { match self { FmtError :: OutOfBudget (e) => Some (e) , FmtError :: Parse (_) | FmtError :: Header (_) | FmtError :: OutOfScope (_) => None , } } }",
+      "reason": "trait-impl of non-prelude trait `Error` — no ambient trait definition and synthetic trait emission is refused (DN-34 §8.8 / DN-122 MVP); gapped the whole impl so the residual cannot file-poison myc-check (G2; express gap-close 2026-07-16)",
+      "item_name": "FmtError"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 246,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Does `src` open with a `phylum` header — i.e. is the first significant line (after leading blank or\"] # [doc = \" `//`-comment lines) the reserved `phylum` keyword at a word boundary? Lets mycfmt refuse a *malformed*\"] # [doc = \" phylum (one `parse_phylum` rejects, e.g. a `phylum` header with no `nodule`) as `OutOfScope` rather\"] # [doc = \" than a parse error, so a phylum source is never a parse error in v0 (M-662; G2). `phylum` is a\"] # [doc = \" reserved keyword (never an identifier), so a leading `phylum` token unambiguously opens a phylum.\"] fn opens_with_phylum (src : & str) -> bool { src . lines () . map (str :: trim_start) . find (| l | ! l . is_empty () && ! l . starts_with (\"//\")) . and_then (| l | l . strip_prefix (\"phylum\")) . is_some_and (| rest | { rest . is_empty () || ! rest . starts_with (| c : char | c . is_alphanumeric () || c == '_') }) }",
+      "reason": "method call `.is_some_and(...)` has no proven-emitted free-fn referent in this file (neither a D4-mangled inherent `Type__is_some_and` nor a bare inherent recorded by this file's left-to-right pass, nor a prim_map / combinator row). Emitting bare `is_some_and(recv, …)` would fabricate an unknown prim and file-poison myc-check (G-β Rank A / G2/VR-5; residual when the method body itself gapped — e.g. M-1037 `.to_vec()` inside `read_to_end` — so the declaration was never registered)",
+      "item_name": "opens_with_phylum"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 274,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Format `src` into its **human-readable** canonical form (M-974/DN-82): the inverse posture of\"] # [doc = \" `--flatten`. Long argument / field / variant / arm segments break across lines with line breaks\"] # [doc = \" after commas (and `|` for sum-type constructors); nested structure indents; short segments stay\"] # [doc = \" inline (the [`READABLE_WIDTH`] readability heuristic). This is the canonical form the `myc-fmt`\"] # [doc = \" gate enforces for the **human-authored stdlib** (`lib/std/*.myc`); `Style::Compact`\"] # [doc = \" ([`format_source`]) remains the default for `examples/` and any generic `.myc` root, and\"] # [doc = \" [`flatten_source`] stays the explicit machine/stream form.\"] # [doc = \"\"] # [doc = \" It is **presentation-only and functionally inert**: the output re-parses to the *same* surface AST\"] # [doc = \" as the compact form (the same C1/C2 identity + idempotence guards apply), so it never changes any\"] # [doc = \" parse/elaborate/eval behavior — machines ingest the flattened stream / full file either way.\"] # [doc = \"\"] # [doc = \" # Errors\"] # [doc = \" Identical to [`format_source`]: [`FmtError::Parse`], [`FmtError::Header`], or\"] # [doc = \" [`FmtError::OutOfScope`] (pin mismatch, unplaceable comment, or a body that does not round-trip).\"] # [doc = \" On any error nothing is rewritten (G2).\"] pub fn format_source_readable (src : & str , pin : Option < & str >) -> Result < Formatted , FmtError > { format_source_readable_cfg (src , pin , LayoutCfg :: default ()) }",
+      "reason": "qualified/associated-function call `LayoutCfg :: default` did not resolve to a known-emitted associated fn — Mycelium calls are bare identifiers, and the only sound surface form for `Type::method(...)` is the mangled `Type__method` name the declaration side already emits for a receiver-less inherent-impl associated fn (DN-34 §8.13/8.14), referenced only when that exact declaration is PROVEN present (same-file, or a resolved M-1084 cross-nodule sibling). A primitive/std associated fn with no emitted decl (e.g. `i128::try_from`), an unresolved type, or a `self`-receiving method (excluded by construction — it stays reachable only from its own bare call site) all gap here rather than fabricate a call (G2/VR-5, DN-133)",
+      "item_name": "format_source_readable"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 311,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Shared implementation of [`format_source`] (Compact) and [`format_source_readable`] (Readable).\"] # [doc = \" The `style` parameter selects only the *layout* of item bodies — every scope/identity/header\"] # [doc = \" guard is style-independent, so both styles emit the same surface AST (C1) from the same input.\"] # [doc = \"\"] # [doc = \" # Errors\"] # [doc = \" See [`format_source`].\"] pub fn format_source_styled (src : & str , pin : Option < & str > , style : Style ,) -> Result < Formatted , FmtError > { format_source_styled_cfg (src , pin , style , LayoutCfg :: default ()) }",
+      "reason": "qualified/associated-function call `LayoutCfg :: default` did not resolve to a known-emitted associated fn — Mycelium calls are bare identifiers, and the only sound surface form for `Type::method(...)` is the mangled `Type__method` name the declaration side already emits for a receiver-less inherent-impl associated fn (DN-34 §8.13/8.14), referenced only when that exact declaration is PROVEN present (same-file, or a resolved M-1084 cross-nodule sibling). A primitive/std associated fn with no emitted decl (e.g. `i128::try_from`), an unresolved type, or a `self`-receiving method (excluded by construction — it stays reachable only from its own bare call site) all gap here rather than fabricate a call (G2/VR-5, DN-133)",
+      "item_name": "format_source_styled"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 325,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Shared implementation with an explicit [`LayoutCfg`] (M-976). The `cfg` selects only *presentation*\"] # [doc = \" (the same-head-chain house style + break width); every scope/identity/header guard is\"] # [doc = \" style- and cfg-independent, so all configurations emit the same surface AST (C1) from the same\"] # [doc = \" input. For `Style::Compact` the `cfg` is inert (the compact path renders item bodies inline).\"] # [doc = \"\"] # [doc = \" **RFC-0041 §4.2/§9 W7 (process-arena coverage).** Delegates to\"] # [doc = \" [`format_source_styled_cfg_with_arena`] with the crate's declared default ceiling\"] # [doc = \" ([`PROCESS_ARENA_CEILING_BYTES`]) — see that function for the reservation.\"] # [doc = \"\"] # [doc = \" # Errors\"] # [doc = \" See [`format_source`], plus [`FmtError::OutOfBudget`] if the pre-render reservation would exceed\"] # [doc = \" the process-wide arena ceiling.\"] pub fn format_source_styled_cfg (src : & str , pin : Option < & str > , style : Style , cfg : LayoutCfg ,) -> Result < Formatted , FmtError > { let arena = ProcessArena :: new (PROCESS_ARENA_CEILING_BYTES) ; format_source_styled_cfg_with_arena (src , pin , style , cfg , & arena) }",
+      "reason": "qualified/associated-function call `ProcessArena :: new` did not resolve to a known-emitted associated fn — Mycelium calls are bare identifiers, and the only sound surface form for `Type::method(...)` is the mangled `Type__method` name the declaration side already emits for a receiver-less inherent-impl associated fn (DN-34 §8.13/8.14), referenced only when that exact declaration is PROVEN present (same-file, or a resolved M-1084 cross-nodule sibling). A primitive/std associated fn with no emitted decl (e.g. `i128::try_from`), an unresolved type, or a `self`-receiving method (excluded by construction — it stays reachable only from its own bare call site) all gap here rather than fabricate a call (G2/VR-5, DN-133)",
+      "item_name": "format_source_styled_cfg"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 347,
+      "col": 1,
+      "category": "MultiStmtBody",
+      "rust_construct": "MultiStmtBody",
+      "snippet": "# [doc = \" [`format_source_styled_cfg`], parameterized over an explicit [`ProcessArena`] (`pub(crate)`, so\"] # [doc = \" this crate's own tests can inject a tiny-ceiling arena and witness a real refusal — production\"] # [doc = \" callers always go through [`format_source_styled_cfg`], which supplies the crate's declared\"] # [doc = \" default ceiling).\"] # [doc = \"\"] # [doc = \" # Errors\"] # [doc = \" See [`format_source_styled_cfg`].\"] pub (crate) fn format_source_styled_cfg_with_arena (src : & str , pin : Option < & str > , style : Style , cfg : LayoutCfg , arena : & ProcessArena ,) -> Result < Formatted , FmtError > { if let Some (p) = pin { if p != MYCFMT_VERSION { return Err (FmtError :: OutOfScope (format ! (\"[toolchain].format = {p:?}, but this is {MYCFMT_VERSION} — refusing to format with rules \\\n                 the project did not pin (hard pin; G2). Align the pin or use the matching mycfmt.\"))) ; } } let is_phylum = parse_phylum (src) . is_ok_and (| ph | ph . path . is_some () || ph . nodules . len () > 1) || opens_with_phylum (src) ; if is_phylum { return Err (FmtError :: OutOfScope (\"phylum / multi-nodule sources are outside mycfmt v0 scope (M-662) — format each nodule's \\\n             content individually; whole-phylum canonical formatting is future work (refused, never a \\\n             partial rewrite — G2)\" . to_string () ,)) ; } let header = parse_header (src) . map_err (| e | FmtError :: Header (e . to_string ())) ? ; let nodule = parse (src) . map_err (| e | FmtError :: Parse (e . to_string ())) ? ; let lines : Vec < & str > = src . lines () . collect () ; let body_start = body_start_line (& lines) ; let (tokens , comments) = lex_with_comments (src) . map_err (| e | FmtError :: Parse (e . to_string ())) ? ; let has_structured_header = header . is_some () ; let plan = build_comment_plan (& nodule , & tokens , & comments , & lines , body_start , has_structured_header ,) ? ; let mut out = String :: new () ; let mut notes = Vec :: new () ; match & header { Some (h) => { out . push_str (& render_header (h)) ; notes . push (\"re-emitted the structured header (// nodule: + // @key:) in canonical order\" . to_owned () ,) ; if ! plan . stray_header_comments . is_empty () { notes . push (format ! (\"preserved {} stray header comment(s) as a leading doc-block on the first item\" , plan . stray_header_comments . len ())) ; } } None => { let leading = leading_comment_block (& lines , body_start) ; if ! leading . is_empty () { out . push_str (& leading) ; notes . push (\"preserved the leading comment block\" . to_owned ()) ; } } } let estimate = (src . len () as u64) . saturating_mul (RENDER_BYTES_PER_SRC_BYTE) ; let _arena_reservation = arena . reserve (estimate) . map_err (FmtError :: OutOfBudget) ? ; let (body , body_notes) = render_body_with_comments (& nodule , & plan , style , cfg) ? ; out . push_str (& body) ; notes . extend (body_notes) ; notes . push (\"re-printed the body in canonical surface form\" . to_owned ()) ; while out . ends_with (\"\\n\\n\") { out . pop () ; } if ! out . ends_with ('\\n') { out . push ('\\n') ; } let reparsed = parse (& out) . map_err (| e | { FmtError :: OutOfScope (format ! (\"the formatted output did not re-parse ({e}) — refusing (round-trip-safe scope; C1/§7)\")) }) ? ; if reparsed != nodule { return Err (FmtError :: OutOfScope (\"formatting would change the program's surface AST — identity not preserved; refusing \\\n             (round-trip-safe scope; C1/§7). This construct is outside mycfmt v0.\" . to_owned () ,)) ; } let reheader = parse_header (& out) . map_err (| e | FmtError :: Header (e . to_string ())) ? ; if reheader != header { return Err (FmtError :: OutOfScope (\"formatting would change the structured header — refusing (C3)\" . to_owned () ,)) ; } let changed = out != src ; Ok (Formatted { output : out , changed , notes , }) }",
+      "reason": "function body has a semicolon-terminated (value-discarding) statement expression before the tail — a `let`-chain body maps only simple `let x = e;` bindings plus a single trailing expression",
+      "item_name": "format_source_styled_cfg_with_arena"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 492,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Flatten `src` into the single-line human↔stream form (M-819; DN-57 §2).\"] # [doc = \"\"] # [doc = \" The mandatory `;` component terminator (M-818) makes the stream form unambiguous: every\"] # [doc = \" component ends with `;`, so components can be separated by a single space and the whole\"] # [doc = \" nodule fits on one line without any whitespace carrying structural meaning.\"] # [doc = \"\"] # [doc = \" **What this produces:** a single output line (plus the required final `\\\\n`) where the nodule\"] # [doc = \" header and every top-level item are emitted in their canonical inline form, joined by `; `\"] # [doc = \" separators.  Example:\"] # [doc = \" ```text\"] # [doc = \" nodule signals.demo; use core.binary; fn f(x: Binary{8}) => Binary{8} = x;\"] # [doc = \" ```\"] # [doc = \"\"] # [doc = \" **Round-trip guarantee (`Empirical`):** `parse(flatten(src)) == parse(format(src))` — the\"] # [doc = \" flattened output re-parses to the same surface AST as the canonically formatted input.  This\"] # [doc = \" is verified by a runtime identity check (C1, same guard as `format_source`) and by the\"] # [doc = \" data-driven corpus test in `src/tests.rs`.  The guarantee is `Empirical`: backed by the\"] # [doc = \" corpus tests, not a formal proof.\"] # [doc = \"\"] # [doc = \" **Comments and structured header:** the flatten form is the machine/stream form; it does not\"] # [doc = \" preserve `//` comments or `// @key:` structured-header metadata.  Both are stripped — they\"] # [doc = \" are not part of the Mycelium surface AST and cannot appear mid-line without swallowing\"] # [doc = \" subsequent content.  A caller that needs comment preservation must use `format_source`.\"] # [doc = \"\"] # [doc = \" **Scope:** the same v0 scope as `format_source` — single-nodule sources only; a phylum /\"] # [doc = \" multi-nodule source is an explicit `OutOfScope` refusal, never a partial rewrite (G2).\"] # [doc = \"\"] # [doc = \" **RFC-0041 §4.2/§9 W7 (process-arena coverage).** Delegates to\"] # [doc = \" [`flatten_source_with_arena`] with the crate's declared default ceiling\"] # [doc = \" ([`PROCESS_ARENA_CEILING_BYTES`]) — see that function for the reservation.\"] # [doc = \"\"] # [doc = \" # Errors\"] # [doc = \" [`FmtError::Parse`] (unparsable), [`FmtError::Header`] (malformed `// nodule:` / `// @key:`\"] # [doc = \" header — structurally invalid, not just metadata), [`FmtError::OutOfScope`] (a pin\"] # [doc = \" mismatch, a phylum/multi-nodule source, or a body that does not round-trip), or\"] # [doc = \" [`FmtError::OutOfBudget`] (the pre-render reservation would exceed the process-wide arena\"] # [doc = \" ceiling).  On any error nothing is written (G2).\"] pub fn flatten_source (src : & str , pin : Option < & str >) -> Result < Formatted , FmtError > { let arena = ProcessArena :: new (PROCESS_ARENA_CEILING_BYTES) ; flatten_source_with_arena (src , pin , & arena) }",
+      "reason": "qualified/associated-function call `ProcessArena :: new` did not resolve to a known-emitted associated fn — Mycelium calls are bare identifiers, and the only sound surface form for `Type::method(...)` is the mangled `Type__method` name the declaration side already emits for a receiver-less inherent-impl associated fn (DN-34 §8.13/8.14), referenced only when that exact declaration is PROVEN present (same-file, or a resolved M-1084 cross-nodule sibling). A primitive/std associated fn with no emitted decl (e.g. `i128::try_from`), an unresolved type, or a `self`-receiving method (excluded by construction — it stays reachable only from its own bare call site) all gap here rather than fabricate a call (G2/VR-5, DN-133)",
+      "item_name": "flatten_source"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 534,
+      "col": 1,
+      "category": "MultiStmtBody",
+      "rust_construct": "MultiStmtBody",
+      "snippet": "# [doc = \" [`flatten_source`], parameterized over an explicit [`ProcessArena`] (`pub(crate)`, so this\"] # [doc = \" crate's own tests can inject a tiny-ceiling arena and witness a real refusal — production\"] # [doc = \" callers always go through [`flatten_source`], which supplies the crate's declared default\"] # [doc = \" ceiling).\"] # [doc = \"\"] # [doc = \" # Errors\"] # [doc = \" See [`flatten_source`].\"] pub (crate) fn flatten_source_with_arena (src : & str , pin : Option < & str > , arena : & ProcessArena ,) -> Result < Formatted , FmtError > { if let Some (p) = pin { if p != MYCFMT_VERSION { return Err (FmtError :: OutOfScope (format ! (\"[toolchain].format = {p:?}, but this is {MYCFMT_VERSION} — refusing to format with rules \\\n                 the project did not pin (hard pin; G2). Align the pin or use the matching mycfmt.\"))) ; } } let is_phylum = parse_phylum (src) . is_ok_and (| ph | ph . path . is_some () || ph . nodules . len () > 1) || opens_with_phylum (src) ; if is_phylum { return Err (FmtError :: OutOfScope (\"phylum / multi-nodule sources are outside mycfmt v0 scope (M-662) — format each nodule's \\\n             content individually; whole-phylum canonical formatting is future work (refused, never a \\\n             partial rewrite — G2)\" . to_string () ,)) ; } parse_header (src) . map_err (| e | FmtError :: Header (e . to_string ())) ? ; let nodule = parse (src) . map_err (| e | FmtError :: Parse (e . to_string ())) ? ; let estimate = (src . len () as u64) . saturating_mul (RENDER_BYTES_PER_SRC_BYTE) ; let _arena_reservation = arena . reserve (estimate) . map_err (FmtError :: OutOfBudget) ? ; let out = render_flat (& nodule) ; let reparsed = parse (& out) . map_err (| e | { FmtError :: OutOfScope (format ! (\"the flattened output did not re-parse ({e}) — refusing (round-trip-safe scope; C1/§7)\")) }) ? ; if reparsed != nodule { return Err (FmtError :: OutOfScope (\"flattening would change the program's surface AST — identity not preserved; refusing \\\n             (round-trip-safe scope; C1/§7). This construct is outside mycfmt v0.\" . to_owned () ,)) ; } let changed = out != src ; Ok (Formatted { output : out , changed , notes : vec ! [\"emitted the single-line stream form (--flatten; M-819/DN-57 §2)\" . to_owned () , \"structured header and comments stripped (not part of the Mycelium surface AST)\" . to_owned () ,] , }) }",
+      "reason": "function body has a semicolon-terminated (value-discarding) statement expression before the tail — a `let`-chain body maps only simple `let x = e;` bindings plus a single trailing expression",
+      "item_name": "flatten_source_with_arena"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 610,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Render `nodule` as a single-line flat stream: `nodule path; item1; item2; …\\\\n`.\"] # [doc = \"\"] # [doc = \" This is the layout policy for `--flatten`; it reuses the existing item renderers but\"] # [doc = \" collapses all whitespace so the whole program fits on one line.  No comments are emitted.\"] # [doc = \"\"] # [doc = \" **RFC-0041 §4.7 (RR-29) guard-hole closure (W1).** This is [`flatten_source`]'s only render-family\"] # [doc = \" entry, so it wraps once, here, in [`ensure_sufficient_stack`] — every callee it reaches\"] # [doc = \" (`render_item_flat`, `render_impl_flat`, and transitively `render_expr_canonical`, each already\"] # [doc = \" self-guarded per item/method too) runs on the grown 256 MiB worker stack rather than the caller's.\"] # [doc = \" One worker-thread spawn per `flatten_source` call, not per recursion level (`nodule.items` is a\"] # [doc = \" flat loop, not itself recursive). Output is unchanged — only the stack it runs on changed.\"] fn render_flat (nodule : & mycelium_l1 :: ast :: Nodule) -> String { let budget = RecursionBudget :: with_depth_default (u64 :: MAX , u64 :: MAX) ; ensure_sufficient_stack (& budget , | | render_flat_inner (nodule)) }",
+      "reason": "qualified type path `mycelium_l1 :: ast :: Nodule` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "render_flat"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 626,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" The actual body of [`render_flat`] — see that function's doc comment for the guard-hole wrap.\"] fn render_flat_inner (nodule : & mycelium_l1 :: ast :: Nodule) -> String { let mut parts : Vec < String > = Vec :: new () ; parts . push (format ! (\"nodule {}{}\" , nodule . path . 0 . join (\".\") , if nodule . std_sys { \" @std-sys\" } else { \"\" })) ; for item in & nodule . items { parts . push (render_item_flat (item)) ; } let mut out = String :: new () ; for (i , part) in parts . iter () . enumerate () { if i == 0 { out . push_str (part) ; if parts . len () == 1 { out . push_str (\";\\n\") ; } else { out . push_str (\"; \") ; } } else { let trimmed = part . trim_end () ; out . push_str (trimmed) ; if i + 1 < parts . len () { out . push (' ') ; } else { out . push ('\\n') ; } } } out }",
+      "reason": "qualified type path `mycelium_l1 :: ast :: Nodule` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "render_flat_inner"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 676,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Render a single top-level item as an inline flat string (no newlines, no indentation).\"] # [doc = \" Each returned string ends with `;` (the mandatory component terminator, DN-57 §3 / M-818).\"] fn render_item_flat (item : & mycelium_l1 :: ast :: Item) -> String { use mycelium_l1 :: ast :: Item ; match item { Item :: Fn (fd) => { let pub_prefix = if fd . vis . is_pub () { \"pub \" } else { \"\" } ; let thaw_prefix = if fd . thaw { \"thaw \" } else { \"\" } ; let sig = render_sig_tail (& fd . sig) ; let body = render_expr_canonical (& fd . body) ; format ! (\"{pub_prefix}{thaw_prefix}fn {sig} = {body};\") } Item :: Impl (id) => render_impl_flat (id) , _ => { let text = render_non_fn_item_compact (item) ; let trimmed = text . trim_end () ; let flat : String = trimmed . split ('\\n') . map (str :: trim) . filter (| l | ! l . is_empty ()) . collect :: < Vec < _ > > () . join (\" \") ; flat } } }",
+      "reason": "qualified type path `mycelium_l1 :: ast :: Item` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "render_item_flat"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 711,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Render an `impl` block in flat inline form: `impl Trait for Type { fn …; fn …; };`\"] fn render_impl_flat (id : & mycelium_l1 :: ast :: ImplDecl) -> String { let args = if id . trait_args . is_empty () { String :: new () } else { let a : Vec < String > = id . trait_args . iter () . map (render_type_ref) . collect () ; format ! (\"[{}]\" , a . join (\", \")) } ; let methods : Vec < String > = id . methods . iter () . map (| m | { let sig = render_sig_tail (& m . sig) ; let pub_prefix = if m . vis . is_pub () { \"pub \" } else { \"\" } ; let thaw_prefix = if m . thaw { \"thaw \" } else { \"\" } ; let body = render_expr_canonical (& m . body) ; format ! (\"{pub_prefix}{thaw_prefix}fn {sig} = {body};\") }) . collect () ; let body = if methods . is_empty () { String :: new () } else { format ! (\" {} \" , methods . join (\" \")) } ; format ! (\"impl {}{} for {} {{{body}}};\" , id . trait_name , args , render_type_ref (& id . for_ty)) }",
+      "reason": "qualified type path `mycelium_l1 :: ast :: ImplDecl` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "render_impl_flat"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 748,
+      "col": 1,
+      "category": "Struct",
+      "rust_construct": "Struct",
+      "snippet": "# [doc = \" A classified comment plan for one source file.\"] # [doc = \"\"] # [doc = \" All indices are into the `nodule.items` Vec.\"] struct CommentPlan { # [doc = \" Stray non-`@key` comments in the header region: they become a leading doc-block on item 0.\"] stray_header_comments : Vec < String > , # [doc = \" Leading comment blocks per item index: comments that appear directly above an item.\"] # [doc = \" Key = item index (0-based).\"] leading : HashMap < usize , Vec < String > > , # [doc = \" Trailing comment on the fn body expression line, per fn item index.\"] # [doc = \" Key = item index (0-based), value = comment text (the `// …` lexeme).\"] fn_trailing : HashMap < usize , String > , # [doc = \" Per-item, per-arm trailing comments: item_idx → arm_idx → comment text.\"] # [doc = \" Populated only for items whose match arms have trailing comments.\"] arm_trailing : HashMap < usize , HashMap < usize , String > > , }",
+      "reason": "struct `CommentPlan` uses named fields and references a type not resolvable in-file — emitting it positionally would introduce an unresolved reference that poisons the file's `myc check`; left gapped under the M-1006 resolvability gate (VR-5/G2)",
+      "item_name": "CommentPlan"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 765,
+      "col": 1,
+      "category": "MultiStmtBody",
+      "rust_construct": "MultiStmtBody",
+      "snippet": "# [doc = \" Build the [`CommentPlan`] by cross-referencing the comment list and the token stream positions.\"] # [doc = \"\"] # [doc = \" `has_structured_header` is `true` when the source has a `// nodule:` / `// @key:` header.\"] # [doc = \" When `false`, pre-body comments are already emitted by `leading_comment_block` in\"] # [doc = \" `format_source` and must NOT also be assigned as leading for item 0 (which would double-emit).\"] # [doc = \"\"] # [doc = \" Guarantee: Empirical — anchoring uses token line numbers; the algorithm is validated by the\"] # [doc = \" unit tests in this file.\"] fn build_comment_plan (nodule : & Nodule , tokens : & [Spanned] , comments : & [Comment] , lines : & [& str] , body_start : usize , has_structured_header : bool ,) -> Result < CommentPlan , FmtError > { let item_first_token_lines = item_first_lines (nodule , tokens) ; let fat_arrow_lines : Vec < u32 > = { let mut arm_lines = Vec :: new () ; let mut depth : i32 = 0 ; for s in tokens { match s . tok { Tok :: LBrace => depth += 1 , Tok :: RBrace => depth -= 1 , Tok :: FatArrow if depth >= 1 => arm_lines . push (s . pos . line) , _ => { } } } arm_lines } ; let mut stray_header_comments : Vec < String > = Vec :: new () ; if has_structured_header { let header_comment_lines : Vec < u32 > = comments . iter () . filter (| c | ! c . trailing && (c . line as usize) <= body_start) . map (| c | c . line) . collect () ; for & hline in & header_comment_lines { let line_text = lines . get ((hline as usize) . saturating_sub (1)) . copied () . unwrap_or (\"\") ; let trimmed = line_text . trim () ; let is_structured = trimmed . starts_with (\"// nodule:\") || trimmed . starts_with (\"// @\") ; if ! is_structured { stray_header_comments . push (trimmed . to_owned ()) ; } } } let fn_line_ranges : Vec < (u32 , u32 , usize) > = { let mut ranges = Vec :: new () ; for (idx , item) in nodule . items . iter () . enumerate () { if matches ! (item , Item :: Fn (_)) { let first = item_first_token_lines . get (idx) . copied () . unwrap_or (0) ; let next = item_first_token_lines . get (idx + 1) . copied () . unwrap_or (u32 :: MAX) ; ranges . push ((first , next , idx)) ; } } ranges } ; let mut fn_trailing : HashMap < usize , String > = HashMap :: new () ; let mut arm_trailing_flat : HashMap < u32 , String > = HashMap :: new () ; for comment in comments { if (comment . line as usize) <= body_start { continue ; } if ! comment . trailing { continue ; } if fat_arrow_lines . contains (& comment . line) { arm_trailing_flat . insert (comment . line , comment . text . clone ()) ; } else if let Some (& (_ , _ , item_idx)) = fn_line_ranges . iter () . find (| (first , next , _) | comment . line >= * first && comment . line < * next) { fn_trailing . entry (item_idx) . or_insert_with (| | comment . text . clone ()) ; } else { return Err (FmtError :: OutOfScope (format ! (\"line {}: a trailing comment on this line cannot be placed by mycfmt v0 — \\\n                 the line is not within a `fn` declaration or a match arm (`=>`); refused, never \\\n                 silently dropped (G2; M-690 stage-2 scope)\" , comment . line))) ; } } let mut arm_trailing : HashMap < usize , HashMap < usize , String > > = HashMap :: new () ; if ! arm_trailing_flat . is_empty () { let mut remaining_arrow_comments : Vec < (u32 , String) > = arm_trailing_flat . into_iter () . collect () ; remaining_arrow_comments . sort_by_key (| (line , _) | * line) ; for (item_idx , item) in nodule . items . iter () . enumerate () { match item { Item :: Fn (fd) => { assign_arm_comments_for_fn (item_idx , & fd . body , & mut remaining_arrow_comments , & mut arm_trailing , & fat_arrow_lines ,) ? ; } Item :: Impl (id) => { for method in & id . methods { assign_arm_comments_for_fn (item_idx , & method . body , & mut remaining_arrow_comments , & mut arm_trailing , & fat_arrow_lines ,) ? ; } } _ => { } } } if let Some ((line , _)) = remaining_arrow_comments . first () { return Err (FmtError :: OutOfScope (format ! (\"line {line}: a trailing match-arm comment could not be assigned to an arm — \\\n                 possibly a nested match (out of scope for token-position anchoring); \\\n                 refused, never silently dropped (G2; M-690 FLAG)\"))) ; } } let mut leading : HashMap < usize , Vec < String > > = HashMap :: new () ; if ! stray_header_comments . is_empty () && ! nodule . items . is_empty () { leading . entry (0) . or_default () . extend (stray_header_comments . clone ()) ; } let body_non_trailing : Vec < & Comment > = comments . iter () . filter (| c | ! c . trailing && (c . line as usize) > body_start) . collect () ; for comment in body_non_trailing { let target_item = item_first_token_lines . iter () . enumerate () . find (| (_ , & first_line) | first_line > comment . line) . map (| (idx , _) | idx) ; match target_item { Some (item_idx) => { leading . entry (item_idx) . or_default () . push (comment . text . clone ()) ; } None => { if let Some (last_idx) = nodule . items . len () . checked_sub (1) { leading . entry (last_idx + 1) . or_default () . push (comment . text . clone ()) ; } } } } Ok (CommentPlan { stray_header_comments , leading , fn_trailing , arm_trailing , }) }",
+      "reason": "`let` binding uses an unsupported pattern (only simple `let x = e;` is supported)",
+      "item_name": "build_comment_plan"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 1023,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Collect, for each item in `nodule.items`, the 1-based source line of its first token.\"] # [doc = \"\"] # [doc = \" We walk the token stream looking for the Nth occurrence of item-opening tokens\"] # [doc = \" (after the `nodule` header tokens are consumed).\"] fn item_first_lines (nodule : & Nodule , tokens : & [Spanned]) -> Vec < u32 > { let mut result = Vec :: with_capacity (nodule . items . len ()) ; let body_tokens : Vec < & Spanned > = { let mut found_nodule = false ; let mut after_header = Vec :: new () ; for s in tokens { if ! found_nodule { if s . tok == Tok :: Nodule { found_nodule = true ; } continue ; } if matches ! (s . tok , Tok :: Ident (_) | Tok :: Dot | Tok :: AtStdSys | Tok :: Eof) && after_header . is_empty () { continue ; } if s . tok == Tok :: Eof { break ; } after_header . push (s) ; } after_header } ; let mut tok_idx = 0 ; for item in & nodule . items { while tok_idx < body_tokens . len () { let s = body_tokens [tok_idx] ; let is_opener = match item { Item :: Use (_) => s . tok == Tok :: Use , Item :: Default (_) => s . tok == Tok :: Default , Item :: Type (_) => matches ! (s . tok , Tok :: Type | Tok :: Pub) , Item :: Trait (_) => matches ! (s . tok , Tok :: Trait | Tok :: Pub) , Item :: Impl (_) => s . tok == Tok :: Impl , Item :: InherentImpl (_) => s . tok == Tok :: Impl , Item :: Fn (_) => matches ! (s . tok , Tok :: Fn | Tok :: Pub | Tok :: Thaw) , Item :: Object (_) => matches ! (s . tok , Tok :: Object | Tok :: Pub) , Item :: Lower (_) => s . tok == Tok :: Lower , Item :: Derive (_) => s . tok == Tok :: Derive , } ; if is_opener { result . push (s . pos . line) ; tok_idx += 1 ; break ; } tok_idx += 1 ; } if result . len () < nodule . items . len () && result . len () == nodule . items . iter () . position (| i | std :: ptr :: eq (i , item)) . map_or (0 , | p | p) { } } while result . len () < nodule . items . len () { result . push (0) ; } result }",
+      "reason": "qualified/associated-function call `Vec :: with_capacity` did not resolve to a known-emitted associated fn — Mycelium calls are bare identifiers, and the only sound surface form for `Type::method(...)` is the mangled `Type__method` name the declaration side already emits for a receiver-less inherent-impl associated fn (DN-34 §8.13/8.14), referenced only when that exact declaration is PROVEN present (same-file, or a resolved M-1084 cross-nodule sibling). A primitive/std associated fn with no emitted decl (e.g. `i128::try_from`), an unresolved type, or a `self`-receiving method (excluded by construction — it stays reachable only from its own bare call site) all gap here rather than fabricate a call (G2/VR-5, DN-133)",
+      "item_name": "item_first_lines"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 1139,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Recursive walker for match arm comment assignment.\"] # [doc = \" `depth` tracks how many `match` expressions we've entered; arm trailing comments in matches\"] # [doc = \" at depth > 1 (nested) are out of scope.\"] fn collect_match_arm_comments (item_idx : usize , expr : & Expr , remaining : & mut Vec < (u32 , String) > , arm_trailing : & mut HashMap < usize , HashMap < usize , String > > , fat_arrow_lines : & [u32] , depth : u32 ,) -> Result < () , FmtError > { match expr { Expr :: Match { scrutinee , arms } => { for (arm_idx , _arm) in arms . iter () . enumerate () { if remaining . is_empty () { break ; } let (arrow_line , comment_text) = remaining . remove (0) ; if ! fat_arrow_lines . contains (& arrow_line) { return Err (FmtError :: OutOfScope (format ! (\"line {arrow_line}: internal error assigning arm comment (G2 never-silent)\"))) ; } if depth > 0 { return Err (FmtError :: OutOfScope (format ! (\"line {arrow_line}: a trailing comment on a nested match arm is out of scope \\\n                         for token-position anchoring (M-690 FLAG; see module doc); refused, never \\\n                         silently dropped (G2)\"))) ; } arm_trailing . entry (item_idx) . or_default () . insert (arm_idx , comment_text) ; } for arm in arms { collect_match_arm_comments (item_idx , & arm . body , remaining , arm_trailing , fat_arrow_lines , depth + 1 ,) ? ; } collect_match_arm_comments (item_idx , scrutinee , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; } Expr :: Let { bound , body , .. } => { collect_match_arm_comments (item_idx , bound , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; collect_match_arm_comments (item_idx , body , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; } Expr :: If { cond , conseq , alt } => { collect_match_arm_comments (item_idx , cond , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; collect_match_arm_comments (item_idx , conseq , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; collect_match_arm_comments (item_idx , alt , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; } Expr :: For { xs , init , body , .. } => { collect_match_arm_comments (item_idx , xs , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; collect_match_arm_comments (item_idx , init , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; collect_match_arm_comments (item_idx , body , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; } Expr :: App { head , args } => { collect_match_arm_comments (item_idx , head , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; for a in args { collect_match_arm_comments (item_idx , a , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; } } Expr :: WithParadigm { body , .. } | Expr :: Wild (body) | Expr :: Spore (body) | Expr :: Wrapping (body) | Expr :: Try (body) => { collect_match_arm_comments (item_idx , body , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; } Expr :: Consume (inner) => { collect_match_arm_comments (item_idx , inner , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; } Expr :: Swap { value , .. } => { collect_match_arm_comments (item_idx , value , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; } Expr :: Colony (hyphae) => { for h in hyphae { let Hypha { forage , body } = h ; if let Some (policy) = forage { collect_match_arm_comments (item_idx , policy , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; } collect_match_arm_comments (item_idx , body , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; } } Expr :: Ascribe (inner , _) => { collect_match_arm_comments (item_idx , inner , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; } Expr :: Lambda { body , .. } => { collect_match_arm_comments (item_idx , body , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; } Expr :: Fuse { left , right } => { collect_match_arm_comments (item_idx , left , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; collect_match_arm_comments (item_idx , right , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; } Expr :: Reclaim { policy , body } => { collect_match_arm_comments (item_idx , policy , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; collect_match_arm_comments (item_idx , body , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; } Expr :: TupleLit (elems) => { for e in elems { collect_match_arm_comments (item_idx , e , remaining , arm_trailing , fat_arrow_lines , depth ,) ? ; } } Expr :: Lit (_) | Expr :: Path (_) => { } } Ok (()) }",
+      "reason": "mutating method body statement is neither a `let`, a supported `self.<field>`/`*<param>` re-assignment, nor (in tail position) the method's own return value — value-threading deliberately refuses any shape outside a flat re-assignment sequence rather than risk an unsound rebind (DN-125 §6.1, never-silent G2/VR-5)",
+      "item_name": "collect_match_arm_comments"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 1444,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Render the nodule body (all items) with leading/trailing comments interleaved.\"] # [doc = \" Returns the rendered text and any notes for the caller.\"] # [doc = \"\"] # [doc = \" **RFC-0041 §4.7 (RR-29) guard-hole closure (W1).** This is [`format_source_styled_cfg`]'s only\"] # [doc = \" render-family entry, so it wraps once, here, in [`ensure_sufficient_stack`] — every callee it\"] # [doc = \" reaches (`render_item_with_comments`, `render_fn_decl_with_comments`, `render_impl_with_comments`,\"] # [doc = \" the Shape-Dispatched Readable family `render_expr_readable`/`render_expr_broken`/`render_spine`,\"] # [doc = \" `render_expr_with_arm_comments`, and transitively `render_expr_canonical`) runs on the grown\"] # [doc = \" 256 MiB worker stack rather than the caller's. One worker-thread spawn per format call, not per\"] # [doc = \" recursion level (`nodule.items` is a flat loop over items; the per-item recursion beneath runs\"] # [doc = \" unwrapped on this single grown stack). Output is unchanged — only the stack it runs on changed.\"] fn render_body_with_comments (nodule : & Nodule , plan : & CommentPlan , style : Style , cfg : LayoutCfg ,) -> Result < (String , Vec < String >) , FmtError > { let budget = RecursionBudget :: with_depth_default (u64 :: MAX , u64 :: MAX) ; ensure_sufficient_stack (& budget , | | { render_body_with_comments_inner (nodule , plan , style , cfg) }) }",
+      "reason": "qualified/associated-function call `RecursionBudget :: with_depth_default` did not resolve to a known-emitted associated fn — Mycelium calls are bare identifiers, and the only sound surface form for `Type::method(...)` is the mangled `Type__method` name the declaration side already emits for a receiver-less inherent-impl associated fn (DN-34 §8.13/8.14), referenced only when that exact declaration is PROVEN present (same-file, or a resolved M-1084 cross-nodule sibling). A primitive/std associated fn with no emitted decl (e.g. `i128::try_from`), an unresolved type, or a `self`-receiving method (excluded by construction — it stays reachable only from its own bare call site) all gap here rather than fabricate a call (G2/VR-5, DN-133)",
+      "item_name": "render_body_with_comments"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 1467,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" The actual body of [`render_body_with_comments`] — see that function's doc comment for the\"] # [doc = \" guard-hole wrap.\"] fn render_body_with_comments_inner (nodule : & Nodule , plan : & CommentPlan , style : Style , cfg : LayoutCfg ,) -> Result < (String , Vec < String >) , FmtError > { let mut out = String :: new () ; let mut notes = Vec :: new () ; let nodule_line = format ! (\"nodule {}{};\\n\" , nodule . path . 0 . join (\".\") , if nodule . std_sys { \" @std-sys\" } else { \"\" }) ; out . push_str (& nodule_line) ; for (item_idx , item) in nodule . items . iter () . enumerate () { out . push ('\\n') ; if let Some (leading_comments) = plan . leading . get (& item_idx) { let count = leading_comments . len () ; for cmt in leading_comments { out . push_str (cmt) ; out . push ('\\n') ; } notes . push (format ! (\"preserved {count} leading comment(s) on item {}\" , item_idx)) ; } let item_text = render_item_with_comments (item , item_idx , plan , style , cfg , & mut notes) ? ; out . push_str (& item_text) ; } let sentinel_idx = nodule . items . len () ; if let Some (trailing_comments) = plan . leading . get (& sentinel_idx) { for cmt in trailing_comments { out . push ('\\n') ; out . push_str (cmt) ; out . push ('\\n') ; } notes . push (format ! (\"preserved {} comment(s) at the end of the nodule\" , trailing_comments . len ())) ; } Ok ((out , notes)) }",
+      "reason": "qualified/associated-function call `String :: new` did not resolve to a known-emitted associated fn — Mycelium calls are bare identifiers, and the only sound surface form for `Type::method(...)` is the mangled `Type__method` name the declaration side already emits for a receiver-less inherent-impl associated fn (DN-34 §8.13/8.14), referenced only when that exact declaration is PROVEN present (same-file, or a resolved M-1084 cross-nodule sibling). A primitive/std associated fn with no emitted decl (e.g. `i128::try_from`), an unresolved type, or a `self`-receiving method (excluded by construction — it stays reachable only from its own bare call site) all gap here rather than fabricate a call (G2/VR-5, DN-133)",
+      "item_name": "render_body_with_comments_inner"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 1527,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Render a single top-level item with its trailing comment (if any) and arm comments (if any).\"] fn render_item_with_comments (item : & Item , item_idx : usize , plan : & CommentPlan , style : Style , cfg : LayoutCfg , notes : & mut Vec < String > ,) -> Result < String , FmtError > { match item { Item :: Fn (fd) => { let fn_trailing = plan . fn_trailing . get (& item_idx) ; let arm_map = plan . arm_trailing . get (& item_idx) ; render_fn_decl_with_comments (fd , fn_trailing . map (String :: as_str) , arm_map , style , cfg , notes ,) } Item :: Impl (id) => { render_impl_with_comments (id , item_idx , plan , style , cfg , notes) } _ => Ok (render_non_fn_item (item , style)) , } }",
+      "reason": "method call `.get(...)` has no proven-emitted free-fn referent in this file (neither a D4-mangled inherent `Type__get` nor a bare inherent recorded by this file's left-to-right pass, nor a prim_map / combinator row). Emitting bare `get(recv, …)` would fabricate an unknown prim and file-poison myc-check (G-β Rank A / G2/VR-5; residual when the method body itself gapped — e.g. M-1037 `.to_vec()` inside `read_to_end` — so the declaration was never registered)",
+      "item_name": "render_item_with_comments"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 1562,
+      "col": 1,
+      "category": "MultiStmtBody",
+      "rust_construct": "MultiStmtBody",
+      "snippet": "# [doc = \" Render a non-fn item to its canonical surface form.  Mirrors the private ambient.rs printers.\"] # [doc = \"\"] # [doc = \" In `Style::Readable`, a `type` sum-type declaration whose compact single line would exceed\"] # [doc = \" [`READABLE_WIDTH`] is re-wrapped one constructor per line (M-974); every other non-fn item\"] # [doc = \" (`use`/`default`/`trait`/`object`/`lower`/`derive`) is short by construction, so it uses the\"] # [doc = \" compact `expand_to_source` render in both styles.\"] fn render_non_fn_item (item : & Item , style : Style) -> String { if style == Style :: Readable { if let Item :: Type (td) = item { if let Some (readable) = render_type_decl_readable (td) { return readable ; } } } render_non_fn_item_compact (item) }",
+      "reason": "function body has a semicolon-terminated (value-discarding) statement expression before the tail — a `let`-chain body maps only simple `let x = e;` bindings plus a single trailing expression",
+      "item_name": "render_non_fn_item"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 1579,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Render a non-fn item to its **compact** canonical surface form.  Mirrors the private ambient.rs\"] # [doc = \" printers by round-tripping through `expand_to_source` on a synthetic single-item nodule.\"] fn render_non_fn_item_compact (item : & Item) -> String { let synthetic = mycelium_l1 :: ast :: Nodule { path : mycelium_l1 :: ast :: Path (vec ! [\"_\" . to_owned ()]) , std_sys : false , items : vec ! [item . clone ()] , } ; let full = expand_to_source (& synthetic) ; full . splitn (3 , '\\n') . nth (2) . map (str :: to_owned) . unwrap_or_default () }",
+      "reason": "struct literal `Nodule { .. }` — not an in-file single-ctor struct or enum struct-variant that emits (no constructor to build; a cross-nodule variant is an honest DN-113/DN-134-OQ-2 resolvability gap, never a fabricated out-of-file reference — VR-5/G2)",
+      "item_name": "render_non_fn_item_compact"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 1603,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Render a `fn` declaration with optional fn-body trailing comment and arm comments.\"] # [doc = \"\"] # [doc = \" The canonical form is:\"] # [doc = \" ```text\"] # [doc = \" fn name(params) -> ret =\"] # [doc = \"   body_expr\"] # [doc = \" ```\"] # [doc = \" With a trailing fn-body comment:\"] # [doc = \" ```text\"] # [doc = \" fn name(params) -> ret =\"] # [doc = \"   body_expr  // comment\"] # [doc = \" ```\"] # [doc = \" With match arm comments (multiline match):\"] # [doc = \" ```text\"] # [doc = \" fn name(params) -> ret =\"] # [doc = \"   match x {\"] # [doc = \"     arm0_pat => arm0_body,  // comment\"] # [doc = \"     arm1_pat => arm1_body\"] # [doc = \"   }\"] # [doc = \" ```\"] fn render_fn_decl_with_comments (fd : & FnDecl , fn_trailing : Option < & str > , arm_map : Option < & HashMap < usize , String > > , style : Style , cfg : LayoutCfg , notes : & mut Vec < String > ,) -> Result < String , FmtError > { let pub_prefix = if fd . vis . is_pub () { \"pub \" } else { \"\" } ; let thaw_prefix = if fd . thaw { \"thaw \" } else { \"\" } ; let has_arm_comments = arm_map . is_some_and (| m | ! m . is_empty ()) ; let compact_sig = render_sig_tail (& fd . sig) ; let sig_text = if style == Style :: Readable && ! has_arm_comments { let header_len = pub_prefix . len () + thaw_prefix . len () + \"fn \" . len () + compact_sig . len () + 2 ; if header_len > READABLE_WIDTH { render_sig_readable (& fd . sig) } else { compact_sig } } else { compact_sig } ; let body_text = if has_arm_comments { let amap = arm_map . expect (\"has_arm_comments implies Some\") ; notes . push (format ! (\"preserved {} trailing arm comment(s) with multiline match rendering in `{}`\" , amap . len () , fd . sig . name)) ; render_expr_with_arm_comments (& fd . body , amap) ? } else if style == Style :: Readable { render_expr_readable (& fd . body , 2 , cfg) } else { render_expr_canonical (& fd . body) } ; let readable_body = style == Style :: Readable && ! has_arm_comments ; let indented_body = if readable_body { format ! (\"  {body_text}\") } else if body_text . contains ('\\n') { body_text . lines () . map (| l | { if l . is_empty () { String :: new () } else { format ! (\"  {l}\") } }) . collect :: < Vec < _ > > () . join (\"\\n\") } else { format ! (\"  {body_text}\") } ; let mut s = format ! (\"{pub_prefix}{thaw_prefix}fn {sig_text} =\\n{indented_body};\\n\") ; if let Some (cmt) = fn_trailing { if s . ends_with ('\\n') { s . pop () ; s . push_str (& format ! (\"  {cmt}\")) ; s . push ('\\n') ; } notes . push (format ! (\"preserved trailing comment on fn `{}`: {cmt}\" , fd . sig . name)) ; } Ok (s) }",
+      "reason": "method call `.is_pub(...)` has no proven-emitted free-fn referent in this file (neither a D4-mangled inherent `Type__is_pub` nor a bare inherent recorded by this file's left-to-right pass, nor a prim_map / combinator row). Emitting bare `is_pub(recv, …)` would fabricate an unknown prim and file-poison myc-check (G-β Rank A / G2/VR-5; residual when the method body itself gapped — e.g. M-1037 `.to_vec()` inside `read_to_end` — so the declaration was never registered)",
+      "item_name": "render_fn_decl_with_comments"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 1724,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Render an `impl` declaration (which may contain fns with arm comments).\"] fn render_impl_with_comments (id : & ImplDecl , item_idx : usize , plan : & CommentPlan , style : Style , cfg : LayoutCfg , notes : & mut Vec < String > ,) -> Result < String , FmtError > { let args = if id . trait_args . is_empty () { String :: new () } else { let a : Vec < String > = id . trait_args . iter () . map (render_type_ref) . collect () ; format ! (\"[{}]\" , a . join (\", \")) } ; let mut s = format ! (\"impl {}{} for {} {{\\n\" , id . trait_name , args , render_type_ref (& id . for_ty)) ; let arm_map = plan . arm_trailing . get (& item_idx) ; for method in & id . methods { let method_text = render_fn_decl_with_comments (method , None , arm_map , style , cfg , notes) ? ; for line in method_text . lines () { s . push_str (\"  \") ; s . push_str (line) ; s . push ('\\n') ; } } s . push_str (\"};\\n\") ; Ok (s) }",
+      "reason": "method call `.is_empty(...)` has no proven-emitted free-fn referent in this file (neither a D4-mangled inherent `Type__is_empty` nor a bare inherent recorded by this file's left-to-right pass, nor a prim_map / combinator row). Emitting bare `is_empty(recv, …)` would fabricate an unknown prim and file-poison myc-check (G-β Rank A / G2/VR-5; residual when the method body itself gapped — e.g. M-1037 `.to_vec()` inside `read_to_end` — so the declaration was never registered)",
+      "item_name": "render_impl_with_comments"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 1767,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Render an expression in canonical form (without any comment interleaving).\"] # [doc = \" This mirrors `print_expr` in ambient.rs.\"] # [doc = \"\"] # [doc = \" **RFC-0041 §4.7 (RR-29) guard-hole closure (W1).** This is the render family's own recursive\"] # [doc = \" entry: [`render_expr_canonical_inner`] recurses over `Expr` directly (`Let`/`If`/`Match`/…), and\"] # [doc = \" is reachable **both** from the guarded text pipeline ([`format_source_styled_cfg`] /\"] # [doc = \" [`flatten_source`], each wrapped once at their own outer entry below) **and** directly, by any\"] # [doc = \" caller that already holds an [`mycelium_l1::ast::Expr`] built some other way (bypassing\"] # [doc = \" `mycelium_l1::parse`'s depth guard) — the census regression\"] # [doc = \" (`src/tests/guard_hole_census.rs::render_expr_canonical_deep_let_chain`). So this function itself\"] # [doc = \" wraps once, on entry, in [`mycelium_workstack::ensure_sufficient_stack`] and delegates to the\"] # [doc = \" actual (unwrapped) recursive logic in [`render_expr_canonical_inner`] — every self-recursive call\"] # [doc = \" inside `render_expr_canonical_inner` calls itself directly (never back through this wrapper), so\"] # [doc = \" a single grown 256 MiB worker stack backs the whole recursive descent, not one worker thread per\"] # [doc = \" nesting level. Infallible (returns `String`); the budget's depth/mem/step ceilings are\"] # [doc = \" unbounded ([`u64::MAX`]) until W2's per-machine frame census wires real ceilings. Output is\"] # [doc = \" byte-identical to before this change — only the stack the recursion runs on changed.\"] fn render_expr_canonical (e : & Expr) -> String { let budget = RecursionBudget :: with_depth_default (u64 :: MAX , u64 :: MAX) ; ensure_sufficient_stack (& budget , | | render_expr_canonical_inner (e)) }",
+      "reason": "qualified/associated-function call `RecursionBudget :: with_depth_default` did not resolve to a known-emitted associated fn — Mycelium calls are bare identifiers, and the only sound surface form for `Type::method(...)` is the mangled `Type__method` name the declaration side already emits for a receiver-less inherent-impl associated fn (DN-34 §8.13/8.14), referenced only when that exact declaration is PROVEN present (same-file, or a resolved M-1084 cross-nodule sibling). A primitive/std associated fn with no emitted decl (e.g. `i128::try_from`), an unresolved type, or a `self`-receiving method (excluded by construction — it stays reachable only from its own bare call site) all gap here rather than fabricate a call (G2/VR-5, DN-133)",
+      "item_name": "render_expr_canonical"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 1789,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" The actual (unguarded) recursive descent behind [`render_expr_canonical`] — see that function's\"] # [doc = \" doc comment for why the wrap lives one level up, not here.\"] fn render_expr_canonical_inner (e : & Expr) -> String { match e { Expr :: Lit (l) => render_literal (l) , Expr :: Path (p) => p . 0 . join (\".\") , Expr :: TupleLit (elems) => { let s : Vec < String > = elems . iter () . map (render_expr_canonical_inner) . collect () ; format ! (\"({})\" , s . join (\", \")) } Expr :: Lambda { params , body } => format ! (\"lambda({}) => {}\" , params . iter () . map (| p | p . name . clone ()) . collect ::< Vec < _ >> () . join (\", \") , render_expr_canonical_inner (body)) , Expr :: Let { name , ty , bound , body , } => { let ann = ty . as_ref () . map (| t | format ! (\": {}\" , render_type_ref (t))) . unwrap_or_default () ; format ! (\"let {name}{ann} = {} in {}\" , render_expr_canonical_inner (bound) , render_expr_canonical_inner (body)) } Expr :: If { cond , conseq , alt } => format ! (\"if {} then {} else {}\" , render_expr_canonical_inner (cond) , render_expr_canonical_inner (conseq) , render_expr_canonical_inner (alt)) , Expr :: Match { scrutinee , arms } => { let arm_strs : Vec < String > = arms . iter () . map (| a | { format ! (\"{} => {}\" , render_pattern (& a . pattern) , render_expr_canonical_inner (& a . body)) }) . collect () ; format ! (\"match {} {{ {} }}\" , render_expr_canonical_inner (scrutinee) , arm_strs . join (\", \")) } Expr :: For { x , xs , acc , init , body , } => format ! (\"for {x} in {}, {acc} = {} => {}\" , render_expr_canonical_inner (xs) , render_expr_canonical_inner (init) , render_expr_canonical_inner (body)) , Expr :: Swap { value , target , policy , } => format ! (\"swap({}, to: {}, policy: {})\" , render_expr_canonical_inner (value) , render_type_ref (target) , policy . 0 . join (\".\")) , Expr :: WithParadigm { paradigm , body } => { format ! (\"with paradigm {paradigm} {{ {} }}\" , render_expr_canonical_inner (body)) } Expr :: Wild (b) => format ! (\"wild {{ {} }}\" , render_expr_canonical_inner (b)) , Expr :: Spore (b) => format ! (\"spore({})\" , render_expr_canonical_inner (b)) , Expr :: Wrapping (b) => format ! (\"wrapping {{ {} }}\" , render_expr_canonical_inner (b)) , Expr :: Colony (hyphae) => { let hs : Vec < String > = hyphae . iter () . map (| h | { let Hypha { forage , body } = h ; match forage { Some (policy) => format ! (\"@forage({}) hypha {}\" , render_expr_canonical_inner (policy) , render_expr_canonical_inner (body)) , None => format ! (\"hypha {}\" , render_expr_canonical_inner (body)) , } }) . collect () ; format ! (\"colony {{ {} }}\" , hs . join (\", \")) } Expr :: App { head , args } => { let arg_strs : Vec < String > = args . iter () . map (render_expr_canonical_inner) . collect () ; format ! (\"{}({})\" , render_expr_canonical_inner (head) , arg_strs . join (\", \")) } Expr :: Ascribe (inner , t) => { format ! (\"{} : {}\" , render_expr_canonical_inner (inner) , render_type_ref (t)) } Expr :: Fuse { left , right } => format ! (\"fuse({}, {})\" , render_expr_canonical_inner (left) , render_expr_canonical_inner (right)) , Expr :: Reclaim { policy , body } => format ! (\"reclaim({}) {{ {} }}\" , render_expr_canonical_inner (policy) , render_expr_canonical_inner (body)) , Expr :: Consume (b) => format ! (\"consume {}\" , render_expr_canonical_inner (b)) , Expr :: Try (b) => format ! (\"{}?\" , render_expr_canonical_inner (b)) , } }",
+      "reason": "method call `.join(...)` has no proven-emitted free-fn referent in this file (neither a D4-mangled inherent `Type__join` nor a bare inherent recorded by this file's left-to-right pass, nor a prim_map / combinator row). Emitting bare `join(recv, …)` would fabricate an unknown prim and file-poison myc-check (G-β Rank A / G2/VR-5; residual when the method body itself gapped — e.g. M-1037 `.to_vec()` inside `read_to_end` — so the declaration was never registered)",
+      "item_name": "render_expr_canonical_inner"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 1955,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Does `compact` (a single-line rendering) fit on one line when placed at column `indent`, against\"] # [doc = \" `width` (M-976: [`LayoutCfg::width`], default [`READABLE_WIDTH`])? One threshold governs EVERY\"] # [doc = \" construct (R0) — chars (not bytes), measured at the node's own indent. The readability decision is\"] # [doc = \" `Declared` — a width threshold, not a proven bound.\"] fn fits_w (compact : & str , indent : usize , width : usize) -> bool { ! compact . contains ('\\n') && indent + compact . chars () . count () <= width }",
+      "reason": "Rust `.contains()` has no verified bare-call kernel prim mapping in this pipeline; desugaring to `contains(recv, …)` would fabricate an unknown prim — gapped never-silently (M-1037, G2/VR-5)",
+      "item_name": "fits_w"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 1963,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" A right-nested same-head chain (R1): `App{head:H, [..lead, App{head:H, ..}]}` repeated ≥ 2 deep.\"] # [doc = \" Returns `(head-render, leading-args-per-link in order, terminal, depth)`. Detects\"] # [doc = \" Cons/GLCons/TCons/bool_and/cat and any right-fold-encoded variadic uniformly — all are `App` with\"] # [doc = \" a `Path` head; there is no separate `Cons` node. Reads ONLY the AST, so C2 holds by construction.\"] fn same_head_chain (e : & Expr) -> Option < (String , Vec < Vec < & Expr > > , & Expr , usize) > { let head_s = match e { Expr :: App { head , args } if ! args . is_empty () => render_expr_canonical_inner (head) , _ => return None , } ; let mut node = e ; let mut links : Vec < Vec < & Expr > > = Vec :: new () ; let terminal : & Expr ; loop { let Expr :: App { head , args } = node else { return None ; } ; if args . is_empty () || render_expr_canonical_inner (head) != head_s { return None ; } let (lead , last) = args . split_at (args . len () - 1) ; let last = & last [0] ; links . push (lead . iter () . collect ()) ; match last { Expr :: App { head : h2 , args : a2 } if ! a2 . is_empty () && render_expr_canonical_inner (h2) == head_s => { node = last ; } _ => { terminal = last ; break ; } } } let depth = links . len () ; if depth >= 2 { Some ((head_s , links , terminal , depth)) } else { None } }",
+      "reason": "match-arm guard (`if ...`) has no Mycelium equivalent (arm grammar has no guard slot)",
+      "item_name": "same_head_chain"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2005,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Does this arm body force its arm (and hence the enclosing match) open regardless of width (R4c)?\"] # [doc = \" True iff the body is (or, through an ascription, wraps) a top-level `let … in …` — the\"] # [doc = \" twice-flagged buried-binding pathology (inspect/inspect_err).\"] fn arm_body_has_top_let (body : & Expr) -> bool { match body { Expr :: Let { .. } => true , Expr :: Ascribe (inner , _) => arm_body_has_top_let (inner) , _ => false , } }",
+      "reason": "struct-variant pattern `Let { .. }` names a constructor with no confirmed in-file layout -- resolved only for an emitted, in-file struct (or, once DN-132's SS5.1 variant-aware `StructLayout` population lands, an in-file enum's named-field variant); never a guessed field-index arity (DN-132 SS5.1/OQ-4, VR-5/G2)",
+      "item_name": "arm_body_has_top_let"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2016,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Does `e` have to break even though its compact render fits (R4c)? A `match` whose any arm body\"] # [doc = \" forces open cannot render inline — the forced arm break propagates up to the match node.\"] fn expr_forces_break (e : & Expr) -> bool { match e { Expr :: Match { arms , .. } => arms . iter () . any (| a | arm_body_has_top_let (& a . body)) , _ => false , } }",
+      "reason": "struct-variant pattern `Match { .. }` names a constructor with no confirmed in-file layout -- resolved only for an emitted, in-file struct (or, once DN-132's SS5.1 variant-aware `StructLayout` population lands, an in-file enum's named-field variant); never a guessed field-index arity (DN-132 SS5.1/OQ-4, VR-5/G2)",
+      "item_name": "expr_forces_break"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2025,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Render one inner (leading / non-recursive) argument of a same-head spine link, honoring the\"] # [doc = \" house-style knob (R1 / [`SpineInner`]). `InlineWhenFits` keeps a fitting call inline (and lets an\"] # [doc = \" overflowing one block per R2); `AlwaysExpand` force-breaks every nested call onto its own lines\"] # [doc = \" while the spine stays flat.\"] fn render_spine_inner_arg (a : & Expr , indent : usize , cfg : LayoutCfg) -> String { match cfg . spine_inner { SpineInner :: AlwaysExpand if matches ! (a , Expr :: App { args , .. } if ! args . is_empty ()) => { render_expr_broken (a , indent , cfg) } _ => render_expr_readable (a , indent , cfg) , } }",
+      "reason": "field access on a non-`self` base — the transpiler tracks no local types, so the projection cannot be resolved to a constructor position (only `self.<field>` desugars to a `match`)",
+      "item_name": "render_spine_inner_arg"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2038,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" R1 flat spine + R5 coalesced closers. Every link sits at ONE fixed indent (`indent`, never +2 per\"] # [doc = \" link); the terminal begins the final line; all `depth` closers collapse into a single horizontal\"] # [doc = \" run on that line. The FIRST line carries no pad (indent contract); the caller places it at\"] # [doc = \" `indent`.\"] fn render_spine (head_s : & str , links : & [Vec < & Expr >] , terminal : & Expr , depth : usize , indent : usize , cfg : LayoutCfg ,) -> String { let pad = \" \" . repeat (indent) ; let mut lines : Vec < String > = Vec :: with_capacity (depth + 1) ; for (li , lead) in links . iter () . enumerate () { let lead_s : Vec < String > = lead . iter () . map (| a | render_spine_inner_arg (a , indent , cfg)) . collect () ; let link = format ! (\"{head_s}({},\" , lead_s . join (\", \")) ; if li == 0 { lines . push (link) ; } else { lines . push (format ! (\"{pad}{link}\")) ; } } let term_s = render_spine_inner_arg (terminal , indent , cfg) ; let closers = \")\" . repeat (depth) ; lines . push (format ! (\"{pad}{term_s}{closers}\")) ; lines . join (\"\\n\") }",
+      "reason": "method call `.repeat(...)` has no proven-emitted free-fn referent in this file (neither a D4-mangled inherent `Type__repeat` nor a bare inherent recorded by this file's left-to-right pass, nor a prim_map / combinator row). Emitting bare `repeat(recv, …)` would fabricate an unknown prim and file-poison myc-check (G-β Rank A / G2/VR-5; residual when the method body itself gapped — e.g. M-1037 `.to_vec()` inside `read_to_end` — so the declaration was never registered)",
+      "item_name": "render_spine"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2070,
+      "col": 1,
+      "category": "MultiStmtBody",
+      "rust_construct": "MultiStmtBody",
+      "snippet": "# [doc = \" Render an expression in the human-readable multi-line style (M-974/M-976).\"] # [doc = \"\"] # [doc = \" **Indent contract:** the returned string's FIRST line carries no leading indentation — the\"] # [doc = \" caller places it at column `indent`; any continuation lines are *absolutely* indented as if the\"] # [doc = \" first line began at column `indent`. A node whose compact single-line render fits within\"] # [doc = \" [`LayoutCfg::width`] at `indent` — AND is not forced open (R4c) — stays inline; otherwise it\"] # [doc = \" breaks per the shape-dispatched rules ([`render_expr_broken`]). AST-driven, so idempotent (C2).\"] fn render_expr_readable (e : & Expr , indent : usize , cfg : LayoutCfg) -> String { let compact = render_expr_canonical_inner (e) ; if fits_w (& compact , indent , cfg . width) && ! expr_forces_break (e) { return compact ; } render_expr_broken (e , indent , cfg) }",
+      "reason": "function body has a semicolon-terminated (value-discarding) statement expression before the tail — a `let`-chain body maps only simple `let x = e;` bindings plus a single trailing expression",
+      "item_name": "render_expr_readable"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2085,
+      "col": 1,
+      "category": "MultiStmtBody",
+      "rust_construct": "MultiStmtBody",
+      "snippet": "# [doc = \" The break layouts (Shape-Dispatched Readable, M-976). Dispatch order (R6): (1) same-head chain →\"] # [doc = \" R1 spine + R5 closers; (2) else App → R2 wide-flat block; (3) match/if → R3 tree; (4) let → R4\"] # [doc = \" binding; (5) tuple/list/ascription → per-kind; (6) compact fallback. Assumes the node must break\"] # [doc = \" (the caller verified `!fits || forces_break`); every layout is whitespace-only, so C1/C2 hold.\"] fn render_expr_broken (e : & Expr , indent : usize , cfg : LayoutCfg) -> String { use mycelium_l1 :: ast :: Literal ; let compact = render_expr_canonical_inner (e) ; let pad = \" \" . repeat (indent) ; let inner = indent + 2 ; let ipad = \" \" . repeat (inner) ; match e { Expr :: App { head , args } if ! args . is_empty () => { if let Some ((head_s , links , terminal , depth)) = same_head_chain (e) { render_spine (& head_s , & links , terminal , depth , indent , cfg) } else { let head_s = render_expr_readable (head , indent , cfg) ; let arg_lines : Vec < String > = args . iter () . map (| a | format ! (\"{ipad}{}\" , render_expr_readable (a , inner , cfg))) . collect () ; format ! (\"{head_s}(\\n{}\\n{pad})\" , arg_lines . join (\",\\n\")) } } Expr :: Match { scrutinee , arms } => { let scrut = render_expr_readable (scrutinee , indent + \"match \" . len () , cfg) ; let arm_lines : Vec < String > = arms . iter () . enumerate () . map (| (i , arm) | { let is_last = i + 1 == arms . len () ; let comma = if is_last { \"\" } else { \",\" } ; let patn = render_pattern (& arm . pattern) ; let forces = arm_body_has_top_let (& arm . body) ; let body_compact = render_expr_canonical_inner (& arm . body) ; let one_line = format ! (\"{patn} => {body_compact}{comma}\") ; if ! forces && fits_w (& one_line , inner , cfg . width) { return format ! (\"{ipad}{one_line}\") ; } if ! forces && matches ! (arm . body , Expr :: Match { .. } | Expr :: If { .. }) { let body = render_expr_readable (& arm . body , inner , cfg) ; let first = body . lines () . next () . unwrap_or (\"\") ; let ride = format ! (\"{patn} => {first}\") ; if fits_w (& ride , inner , cfg . width) { return format ! (\"{ipad}{patn} => {body}{comma}\") ; } } let body = render_expr_broken (& arm . body , inner + 2 , cfg) ; format ! (\"{ipad}{patn} =>\\n{ipad}  {body}{comma}\") }) . collect () ; format ! (\"match {scrut} {{\\n{}\\n{pad}}}\" , arm_lines . join (\"\\n\")) } Expr :: Let { name , ty , bound , body , } => { let ann = ty . as_ref () . map (| t | format ! (\": {}\" , render_type_ref (t))) . unwrap_or_default () ; let head = format ! (\"let {name}{ann} = \") ; let bound_s = render_expr_readable (bound , indent , cfg) ; let body_s = render_expr_readable (body , indent , cfg) ; format ! (\"{head}{bound_s} in\\n{pad}{body_s}\") } Expr :: If { cond , conseq , alt } => { let cond_s = render_expr_readable (cond , indent + \"if \" . len () , cfg) ; let conseq_s = render_expr_readable (conseq , inner , cfg) ; let alt_s = render_expr_readable (alt , inner , cfg) ; format ! (\"if {cond_s} then\\n{ipad}{conseq_s}\\n{pad}else\\n{ipad}{alt_s}\") } Expr :: TupleLit (elems) if ! elems . is_empty () => { let elem_lines : Vec < String > = elems . iter () . map (| el | format ! (\"{ipad}{}\" , render_expr_readable (el , inner , cfg))) . collect () ; format ! (\"(\\n{}\\n{pad})\" , elem_lines . join (\",\\n\")) } Expr :: Lit (Literal :: List (es)) if ! es . is_empty () => { let elem_lines : Vec < String > = es . iter () . map (| el | format ! (\"{ipad}{}\" , render_expr_readable (el , inner , cfg))) . collect () ; format ! (\"[\\n{}\\n{pad}]\" , elem_lines . join (\",\\n\")) } Expr :: Ascribe (inner_e , t) => { format ! (\"{} : {}\" , render_expr_readable (inner_e , indent , cfg) , render_type_ref (t)) } _ => compact , } }",
+      "reason": "function body contains a nested item declaration (e.g. a local `static`/`const`/`fn`) — this grammar fragment has no local-item production; only simple `let x = e;` bindings plus a trailing expression map",
+      "item_name": "render_expr_broken"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2205,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Render one sum-type constructor (`Name` or `Name(T1, T2)`) — mirrors the ctor render in\"] # [doc = \" `mycelium_l1::ambient::print_type_decl`, used by [`render_type_decl_readable`].\"] fn render_ctor (c : & mycelium_l1 :: ast :: Ctor) -> String { let seal = if c . sealed { \"priv \" } else { \"\" } ; if c . fields . is_empty () { format ! (\"{seal}{}\" , c . name) } else { let fs : Vec < String > = c . fields . iter () . map (render_type_ref) . collect () ; format ! (\"{seal}{}({})\" , c . name , fs . join (\", \")) } }",
+      "reason": "qualified type path `mycelium_l1 :: ast :: Ctor` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "render_ctor"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2219,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Render a `type` sum-type declaration in the readable style (M-974) — one constructor per line,\"] # [doc = \" break after each `|` — **only when** its compact single line would exceed [`READABLE_WIDTH`].\"] # [doc = \" Returns `None` when the compact form already fits (the caller then uses the compact render), so a\"] # [doc = \" short `type Result[A, E] = Ok(A) | Err(E);` stays inline. The output ends with the mandatory `;`\"] # [doc = \" terminator + newline, matching the compact item text (DN-57 §3).\"] # [doc = \"\"] # [doc = \" ```text\"] # [doc = \" type Predicate =\"] # [doc = \"     PAlways\"] # [doc = \"   | PSrcKindIs(Kind)\"] # [doc = \"   | PAnd(Predicate, Predicate);\"] # [doc = \" ```\"] fn render_type_decl_readable (td : & mycelium_l1 :: ast :: TypeDecl) -> Option < String > { let vis = if td . vis . is_pub () { \"pub \" } else { \"\" } ; let params = if td . params . is_empty () { String :: new () } else { format ! (\"[{}]\" , td . params . join (\", \")) } ; let ctors : Vec < String > = td . ctors . iter () . map (render_ctor) . collect () ; let compact_line = format ! (\"{vis}type {}{} = {};\" , td . name , params , ctors . join (\" | \")) ; if compact_line . chars () . count () <= READABLE_WIDTH { return None ; } let mut lines : Vec < String > = Vec :: with_capacity (ctors . len ()) ; for (i , c) in ctors . iter () . enumerate () { if i == 0 { lines . push (format ! (\"    {c}\")) ; } else { lines . push (format ! (\"  | {c}\")) ; } } Some (format ! (\"{vis}type {}{} =\\n{};\\n\" , td . name , params , lines . join (\"\\n\"))) }",
+      "reason": "qualified type path `mycelium_l1 :: ast :: TypeDecl` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "render_type_decl_readable"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2261,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Render an expression, using multiline match rendering if the arm_map is non-empty and\"] # [doc = \" the expression (or sub-expression) is a match.\"] # [doc = \"\"] # [doc = \" **Comma placement:** the arm separator `,` must go BEFORE any trailing comment on that arm's\"] # [doc = \" line.  A `// …` comment runs to end-of-line, so a comma placed AFTER it would be swallowed\"] # [doc = \" into the comment text and then lost when the output is re-lexed, breaking the round-trip.\"] # [doc = \" Canonical multiline form:\"] # [doc = \" ```text\"] # [doc = \" match scrutinee {\"] # [doc = \"   pat0 => body0,  // comment\"] # [doc = \"   pat1 => body1\"] # [doc = \" }\"] # [doc = \" ```\"] fn render_expr_with_arm_comments (e : & Expr , arm_map : & HashMap < usize , String > ,) -> Result < String , FmtError > { match e { Expr :: Match { scrutinee , arms } => { let scrutinee_str = render_expr_canonical_inner (scrutinee) ; let last_idx = arms . len () . saturating_sub (1) ; let mut arm_strs = Vec :: with_capacity (arms . len ()) ; for (arm_idx , arm) in arms . iter () . enumerate () { let arm_body = render_expr_canonical_inner (& arm . body) ; let pat = render_pattern (& arm . pattern) ; let is_last = arm_idx == last_idx ; let comma = if is_last { \"\" } else { \",\" } ; if let Some (cmt) = arm_map . get (& arm_idx) { arm_strs . push (format ! (\"  {pat} => {arm_body}{comma}  {cmt}\")) ; } else { arm_strs . push (format ! (\"  {pat} => {arm_body}{comma}\")) ; } } Ok (format ! (\"match {scrutinee_str} {{\\n{}\\n}}\" , arm_strs . join (\"\\n\"))) } _ => Ok (render_expr_canonical_inner (e)) , } }",
+      "reason": "struct-variant pattern `Match { .. }` names a constructor with no confirmed in-file layout -- resolved only for an emitted, in-file struct (or, once DN-132's SS5.1 variant-aware `StructLayout` population lands, an in-file enum's named-field variant); never a guessed field-index arity (DN-132 SS5.1/OQ-4, VR-5/G2)",
+      "item_name": "render_expr_with_arm_comments"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2309,
+      "col": 1,
+      "category": "MultiStmtBody",
+      "rust_construct": "MultiStmtBody",
+      "snippet": "fn render_pattern (p : & Pattern) -> String { match p { Pattern :: Wildcard => \"_\" . to_owned () , Pattern :: Lit (l) => render_literal (l) , Pattern :: Tuple (subs) => { let s : Vec < String > = subs . iter () . map (render_pattern) . collect () ; format ! (\"({})\" , s . join (\", \")) } Pattern :: Ctor (n , subs) => { let s : Vec < String > = subs . iter () . map (render_pattern) . collect () ; format ! (\"{n}({})\" , s . join (\", \")) } Pattern :: Or (alts) => { let s : Vec < String > = alts . iter () . map (render_pattern) . collect () ; s . join (\" | \") } Pattern :: Ident (n) => n . clone () , } }",
+      "reason": "`let` binding uses an unsupported pattern (only simple `let x = e;` is supported)",
+      "item_name": "render_pattern"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2332,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "fn render_literal (l : & mycelium_l1 :: ast :: Literal) -> String { use mycelium_l1 :: ast :: Literal ; match l { Literal :: Bin (s) => format ! (\"0b{s}\") , Literal :: Trit (s) => format ! (\"0t{s}\") , Literal :: Bytes (s) => format ! (\"0x{s}\") , Literal :: Int (i) => format ! (\"{i}\") , Literal :: AmbientInt (p , i) => format ! (\"{i} /* {p} (width from context) */\") , Literal :: List (es) => { let s : Vec < String > = es . iter () . map (render_expr_canonical_inner) . collect () ; format ! (\"[{}]\" , s . join (\", \")) } Literal :: Str (s) => format ! (\"\\\"{}\\\"\" , escape_string_literal (s)) , Literal :: Float (s) => s . clone () , _ => unreachable ! (\"unrecognized Literal variant — mycelium-l1 version mismatch (G2: never silent)\") , } }",
+      "reason": "qualified type path `mycelium_l1 :: ast :: Literal` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "render_literal"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2365,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Re-escape a decoded string literal's content back to `.myc` source form. The exact inverse\"] # [doc = \" of `mycelium_l1::lexer::Lexer::lex_string`'s decode table (`\\\\n \\\\t \\\\\\\\ \\\\\\\" \\\\0 \\\\r`) — mirrors\"] # [doc = \" `mycelium_l1::ambient::escape_string_literal` (private to that crate; mycelium-fmt does not\"] # [doc = \" depend on mycelium-l1's private internals, so the escape set is kept in sync by definition\"] # [doc = \" rather than by import).\"] fn escape_string_literal (s : & str) -> String { let mut out = String :: with_capacity (s . len ()) ; for c in s . chars () { match c { '\\\\' => out . push_str (\"\\\\\\\\\") , '\"' => out . push_str (\"\\\\\\\"\") , '\\n' => out . push_str (\"\\\\n\") , '\\t' => out . push_str (\"\\\\t\") , '\\r' => out . push_str (\"\\\\r\") , '\\0' => out . push_str (\"\\\\0\") , other => out . push (other) , } } out }",
+      "reason": "qualified/associated-function call `String :: with_capacity` did not resolve to a known-emitted associated fn — Mycelium calls are bare identifiers, and the only sound surface form for `Type::method(...)` is the mangled `Type__method` name the declaration side already emits for a receiver-less inherent-impl associated fn (DN-34 §8.13/8.14), referenced only when that exact declaration is PROVEN present (same-file, or a resolved M-1084 cross-nodule sibling). A primitive/std associated fn with no emitted decl (e.g. `i128::try_from`), an unresolved type, or a `self`-receiving method (excluded by construction — it stays reachable only from its own bare call site) all gap here rather than fabricate a call (G2/VR-5, DN-133)",
+      "item_name": "escape_string_literal"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2386,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Renders a [`mycelium_l1::ast::TypeRef`] — the type-keyword render path, including the four\"] # [doc = \" paradigm repr keywords (`BaseType::Binary`/`Ternary`/`Dense`/`Vsa`).\"] # [doc = \"\"] # [doc = \" **RFC-0037 D2-b (M-915) canonicalization choice — `Declared`.** The short repr-keyword aliases\"] # [doc = \" `bin`/`tern`/`emb`/`hvec` elaborate identically to their long forms at parse time (the parser\"] # [doc = \" produces the exact same `BaseType::Binary`/`Ternary`/`Dense`/`Vsa` for either spelling — see\"] # [doc = \" `mycelium-l1`'s `Tok::BinShort` doc comment); the AST itself retains **no record** of which\"] # [doc = \" spelling was written. Consequently there is no separate short-form render arm here by\"] # [doc = \" construction: this function always emits the long form (`Binary`/`Ternary`/`Dense`/`VSA`), so\"] # [doc = \" `mycfmt` canonicalizes a short-alias input to its long-form output. This keeps the existing\"] # [doc = \" corpus and every pre-existing `mycelium-fmt` fixture byte-identical (no reformat churn) while\"] # [doc = \" still accepting the ergonomic short spelling as input — verified by\"] # [doc = \" `docs/spec/grammar/conformance/accept/26-short-repr-keywords.myc` round-tripping through both\"] # [doc = \" `format_source` (C1/C2) and `flatten_source`.\"] fn render_type_ref (t : & mycelium_l1 :: ast :: TypeRef) -> String { use mycelium_l1 :: ast :: BaseType ; let base = match & t . base { BaseType :: Binary (n) => format ! (\"Binary{{{n}}}\") , BaseType :: Ternary (m) => format ! (\"Ternary{{{m}}}\") , BaseType :: Dense (d , s) => format ! (\"Dense{{{d}, {}}}\" , scalar_str (* s)) , BaseType :: Tuple (elems) => { let s : Vec < String > = elems . iter () . map (render_type_ref) . collect () ; format ! (\"({})\" , s . join (\", \")) } BaseType :: Vsa { model , dim , sparsity , } => { format ! (\"VSA{{{model}, {dim}, {}}}\" , sparsity_str (sparsity)) } BaseType :: Substrate (t) => format ! (\"Substrate{{{t}}}\") , BaseType :: Seq { elem , len } => format ! (\"Seq{{{}, {len}}}\" , render_type_ref (elem)) , BaseType :: Bytes => \"Bytes\" . to_owned () , BaseType :: Float => \"Float\" . to_owned () , BaseType :: Named (n , args) if args . is_empty () => n . clone () , BaseType :: Named (n , args) => { let a : Vec < String > = args . iter () . map (render_type_ref) . collect () ; format ! (\"{n}[{}]\" , a . join (\", \")) } BaseType :: Ambient (params) => format ! (\"{{{}}}\" , ambient_params_str (params)) , BaseType :: Fn (a , b) => format ! (\"{} => {}\" , render_type_ref (a) , render_type_ref (b)) , } ; match t . guarantee { Some (g) => format ! (\"{base} @ {g:?}\") , None => base , } }",
+      "reason": "qualified type path `mycelium_l1 :: ast :: TypeRef` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "render_type_ref"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2442,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "fn render_sig_tail (sig : & mycelium_l1 :: ast :: FnSig) -> String { use mycelium_l1 :: ast :: ParamKind ; let type_ps : Vec < String > = sig . params . iter () . filter (| p | p . kind == ParamKind :: Type) . map (render_type_param) . collect () ; let const_ps : Vec < String > = sig . params . iter () . filter (| p | p . kind == ParamKind :: Width) . map (| p | p . name . clone ()) . collect () ; let tp = if type_ps . is_empty () { String :: new () } else { format ! (\"[{}]\" , type_ps . join (\", \")) } ; let cp = if const_ps . is_empty () { String :: new () } else { format ! (\"{{{}}}\" , const_ps . join (\", \")) } ; let ps : Vec < String > = sig . value_params . iter () . map (| p | format ! (\"{}: {}\" , p . name , render_type_ref (& p . ty))) . collect () ; let eff = render_effects_suffix (sig) ; format ! (\"{}{}{}({}) => {}{}\" , sig . name , tp , cp , ps . join (\", \") , render_type_ref (& sig . ret) , eff) }",
+      "reason": "qualified type path `mycelium_l1 :: ast :: FnSig` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "render_sig_tail"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2485,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" The trailing effect-set suffix of a signature — ` !{name, name(<=N), …}` when present, else empty.\"] # [doc = \"\"] # [doc = \" RFC-0014 §4.5 I4 (M-677): render each effect with its budget bound when present — `name(<=N)`.\"] # [doc = \" The parser folds any `KiB`/`MiB`/`GiB` suffix into a unit-less byte count\"] # [doc = \" (`effect_budgets: BTreeMap<String, u64>`), so the canonical surface is the raw `<=N`; this\"] # [doc = \" round-trips AST-equal. Shared by the compact ([`render_sig_tail`]) and readable\"] # [doc = \" ([`render_sig_readable`]) signature renderers (DRY) so the two never drift.\"] fn render_effects_suffix (sig : & mycelium_l1 :: ast :: FnSig) -> String { if sig . effects . is_empty () { return String :: new () ; } let rendered : Vec < String > = sig . effects . iter () . map (| e | match sig . effect_budgets . get (e) { Some (n) => format ! (\"{e}(<={n})\") , None => e . clone () , }) . collect () ; format ! (\" !{{{}}}\" , rendered . join (\", \")) }",
+      "reason": "qualified type path `mycelium_l1 :: ast :: FnSig` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "render_effects_suffix"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2507,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Render a signature in the **readable** style (M-974): the value-parameter list breaks one\"] # [doc = \" parameter per line (line breaks after commas), keeping the type/width parameter lists and the\"] # [doc = \" return/effects inline. Returns the signature text *without* the leading `fn ` (the caller adds\"] # [doc = \" it) — the first line follows `fn ` at column 3, the parameters indent to column 2, and the\"] # [doc = \" closing `) => Ret !{eff}` returns to column 0. Whitespace-only vs [`render_sig_tail`], so it\"] # [doc = \" re-parses to the same [`mycelium_l1::ast::FnSig`] (C1).\"] # [doc = \"\"] # [doc = \" ```text\"] # [doc = \" name[T]{N}(\"] # [doc = \"   p1: T1,\"] # [doc = \"   p2: T2\"] # [doc = \" ) => Ret !{eff}\"] # [doc = \" ```\"] fn render_sig_readable (sig : & mycelium_l1 :: ast :: FnSig) -> String { use mycelium_l1 :: ast :: ParamKind ; let type_ps : Vec < String > = sig . params . iter () . filter (| p | p . kind == ParamKind :: Type) . map (render_type_param) . collect () ; let const_ps : Vec < String > = sig . params . iter () . filter (| p | p . kind == ParamKind :: Width) . map (| p | p . name . clone ()) . collect () ; let tp = if type_ps . is_empty () { String :: new () } else { format ! (\"[{}]\" , type_ps . join (\", \")) } ; let cp = if const_ps . is_empty () { String :: new () } else { format ! (\"{{{}}}\" , const_ps . join (\", \")) } ; let eff = render_effects_suffix (sig) ; let ret = render_type_ref (& sig . ret) ; if sig . value_params . is_empty () { return format ! (\"{}{}{}() => {}{}\" , sig . name , tp , cp , ret , eff) ; } let ps : Vec < String > = sig . value_params . iter () . map (| p | format ! (\"  {}: {}\" , p . name , render_type_ref (& p . ty))) . collect () ; format ! (\"{}{}{}(\\n{}\\n) => {}{}\" , sig . name , tp , cp , ps . join (\",\\n\") , ret , eff) }",
+      "reason": "qualified type path `mycelium_l1 :: ast :: FnSig` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "render_sig_readable"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2567,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "fn render_type_param (p : & mycelium_l1 :: ast :: TypeParam) -> String { if p . bounds . is_empty () { p . name . clone () } else { let bs : Vec < String > = p . bounds . iter () . map (render_trait_ref) . collect () ; format ! (\"{}: {}\" , p . name , bs . join (\" + \")) } }",
+      "reason": "qualified type path `mycelium_l1 :: ast :: TypeParam` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "render_type_param"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2576,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "fn render_trait_ref (tr : & mycelium_l1 :: ast :: TraitRef) -> String { if tr . args . is_empty () { tr . name . clone () } else { let args : Vec < String > = tr . args . iter () . map (render_type_ref) . collect () ; format ! (\"{}[{}]\" , tr . name , args . join (\", \")) } }",
+      "reason": "qualified type path `mycelium_l1 :: ast :: TraitRef` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "render_trait_ref"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2585,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "fn scalar_str (s : mycelium_l1 :: ast :: Scalar) -> & 'static str { use mycelium_l1 :: ast :: Scalar ; match s { Scalar :: F16 => \"F16\" , Scalar :: Bf16 => \"BF16\" , Scalar :: F32 => \"F32\" , Scalar :: F64 => \"F64\" , } }",
+      "reason": "qualified type path `mycelium_l1 :: ast :: Scalar` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "scalar_str"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2595,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "fn sparsity_str (s : & mycelium_l1 :: ast :: Sparsity) -> String { use mycelium_l1 :: ast :: Sparsity ; match s { Sparsity :: Dense => \"Dense\" . to_owned () , Sparsity :: Sparse (k) => format ! (\"Sparse{{{k}}}\") , } }",
+      "reason": "qualified type path `mycelium_l1 :: ast :: Sparsity` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "sparsity_str"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2603,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "fn ambient_params_str (p : & mycelium_l1 :: ast :: AmbientParams) -> String { use mycelium_l1 :: ast :: AmbientParams ; match p { AmbientParams :: Size (n) => format ! (\"{n}\") , AmbientParams :: Dense (d , s) => format ! (\"{d}, {}\" , scalar_str (* s)) , AmbientParams :: Vsa { model , dim , sparsity , } => { format ! (\"{model}, {dim}, {}\" , sparsity_str (sparsity)) } } }",
+      "reason": "qualified type path `mycelium_l1 :: ast :: AmbientParams` — collapsing to its last segment would risk colliding with an unrelated same-named local type (e.g. `std::cmp::Ordering` vs a local `Ordering`); left an explicit gap rather than guessed (VR-5)",
+      "item_name": "ambient_params_str"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2622,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" The 1-based line index where the body (the `nodule …` code) begins: the first non-blank line that is\"] # [doc = \" not a `//` comment. Every header/leading line is a `//` comment or blank, so this cleanly separates the\"] # [doc = \" comment/header region from the code. Returns `lines.len()` if there is no code line.\"] fn body_start_line (lines : & [& str]) -> usize { lines . iter () . position (| l | { let t = l . trim () ; ! t . is_empty () && ! t . starts_with (\"//\") }) . unwrap_or (lines . len ()) }",
+      "reason": "method call `.unwrap_or(...)` has no proven-emitted free-fn referent in this file (neither a D4-mangled inherent `Type__unwrap_or` nor a bare inherent recorded by this file's left-to-right pass, nor a prim_map / combinator row). Emitting bare `unwrap_or(recv, …)` would fabricate an unknown prim and file-poison myc-check (G-β Rank A / G2/VR-5; residual when the method body itself gapped — e.g. M-1037 `.to_vec()` inside `read_to_end` — so the declaration was never registered)",
+      "item_name": "body_start_line"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2635,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" The leading comment block (case: no structured header) — the comment lines before the code,\"] # [doc = \" each verbatim, one per line, blank lines dropped, terminated by a newline. Empty if there are none.\"] fn leading_comment_block (lines : & [& str] , end : usize) -> String { let mut out = String :: new () ; for l in & lines [.. end . min (lines . len ())] { if l . trim () . starts_with (\"//\") { out . push_str (l) ; out . push ('\\n') ; } } out }",
+      "reason": "qualified/associated-function call `String :: new` did not resolve to a known-emitted associated fn — Mycelium calls are bare identifiers, and the only sound surface form for `Type::method(...)` is the mangled `Type__method` name the declaration side already emits for a receiver-less inherent-impl associated fn (DN-34 §8.13/8.14), referenced only when that exact declaration is PROVEN present (same-file, or a resolved M-1084 cross-nodule sibling). A primitive/std associated fn with no emitted decl (e.g. `i128::try_from`), an unresolved type, or a `self`-receiving method (excluded by construction — it stays reachable only from its own bare call site) all gap here rather than fabricate a call (G2/VR-5, DN-133)",
+      "item_name": "leading_comment_block"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2648,
+      "col": 1,
+      "category": "Other",
+      "rust_construct": "Other",
+      "snippet": "# [doc = \" Render a structured header canonically: the `// nodule:` marker, then present `// @key:` lines in the\"] # [doc = \" fixed §4 order (`HEADER_KEYS`), one space after each colon, comma-joined lists. Values are re-emitted\"] # [doc = \" as parsed — never fabricated (VR-5).\"] fn render_header (h : & StructuredHeader) -> String { let mut s = h . marker . canonical () ; s . push ('\\n') ; let f = & h . fields ; if let Some (v) = & f . version { s . push_str (& format ! (\"// @version: {v}\\n\")) ; } if let Some (v) = & f . license { s . push_str (& format ! (\"// @license: {v}\\n\")) ; } if let Some (v) = & f . authors { s . push_str (& format ! (\"// @authors: {}\\n\" , v . join (\", \"))) ; } if let Some (v) = & f . since { s . push_str (& format ! (\"// @since: {v}\\n\")) ; } if let Some (v) = & f . updated { s . push_str (& format ! (\"// @updated: {v}\\n\")) ; } if let Some (v) = & f . summary { s . push_str (& format ! (\"// @summary: {v}\\n\")) ; } if let Some (v) = & f . repository { s . push_str (& format ! (\"// @repository: {v}\\n\")) ; } if let Some (v) = & f . keywords { s . push_str (& format ! (\"// @keywords: {}\\n\" , v . join (\", \"))) ; } if let Some (d) = & f . deprecated { let v = match d { Deprecated :: Flag (b) => b . to_string () , Deprecated :: Reason (r) => r . clone () , } ; s . push_str (& format ! (\"// @deprecated: {v}\\n\")) ; } s }",
+      "reason": "method call `.canonical(...)` has no proven-emitted free-fn referent in this file (neither a D4-mangled inherent `Type__canonical` nor a bare inherent recorded by this file's left-to-right pass, nor a prim_map / combinator row). Emitting bare `canonical(recv, …)` would fabricate an unknown prim and file-poison myc-check (G-β Rank A / G2/VR-5; residual when the method body itself gapped — e.g. M-1037 `.to_vec()` inside `read_to_end` — so the declaration was never registered)",
+      "item_name": "render_header"
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "line": 2689,
+      "col": 1,
+      "category": "TestItem",
+      "rust_construct": "TestItem",
+      "snippet": "# [cfg (test)] mod tests ;",
+      "reason": "#[cfg(test)] item — out of scope for this PoC's transpilation surface (excluded from the expressible-fraction denominator, but recorded, never silently skipped)",
+      "item_name": "tests"
+    }
+  ],
+  "category_counts": {
+    "DeriveAttr": 6,
+    "DeriveSatisfied": 14,
+    "Impl": 3,
+    "Import": 12,
+    "MultiStmtBody": 10,
+    "NamedFieldDrop": 2,
+    "Other": 48,
+    "ReservedWord": 1,
+    "Struct": 1,
+    "TestItem": 1
+  }
+}

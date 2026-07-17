@@ -1,0 +1,98 @@
+{
+  "files": [
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+      "total_items": 12,
+      "non_test_items": 12,
+      "emitted": 4,
+      "gaps": 16,
+      "expressible_pct": 33.33333333333333,
+      "category_counts": {
+        "DeriveSatisfied": 3,
+        "Import": 5,
+        "MultiStmtBody": 3,
+        "Other": 4,
+        "ReservedWord": 1
+      }
+    },
+    {
+      "file": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+      "total_items": 75,
+      "non_test_items": 74,
+      "emitted": 14,
+      "gaps": 82,
+      "expressible_pct": 18.91891891891892,
+      "category_counts": {
+        "DeriveAttr": 6,
+        "DeriveSatisfied": 11,
+        "Impl": 3,
+        "Import": 7,
+        "MultiStmtBody": 7,
+        "NamedFieldDrop": 2,
+        "Other": 44,
+        "Struct": 1,
+        "TestItem": 1
+      }
+    }
+  ],
+  "totals": {
+    "total_items": 87,
+    "non_test_items": 86,
+    "emitted": 18,
+    "gaps": 98,
+    "expressible_pct": 20.930232558139537,
+    "category_counts": {
+      "DeriveAttr": 6,
+      "DeriveSatisfied": 14,
+      "Impl": 3,
+      "Import": 12,
+      "MultiStmtBody": 10,
+      "NamedFieldDrop": 2,
+      "Other": 48,
+      "ReservedWord": 1,
+      "Struct": 1,
+      "TestItem": 1
+    }
+  },
+  "remap": {
+    "phylum": {
+      "source_crate": "mycelium-fmt",
+      "target_phylum": "fmt"
+    },
+    "nodules": [
+      {
+        "target_nodule": "fmt.bin.mycfmt",
+        "operation": "Keep",
+        "sources": [
+          {
+            "rust_path": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/bin/mycfmt.rs",
+            "rust_span": null,
+            "moved_items": []
+          }
+        ],
+        "rationale": "structure-preserving 1:1 (DN-109 §5.3-B v0 default: every emitted nodule keeps its source file's mod-tree position, no restructuring proposed)",
+        "safety": "Safe",
+        "api_surface_changed": false,
+        "identity_neutral": true,
+        "guarantee": "Declared"
+      },
+      {
+        "target_nodule": "fmt",
+        "operation": "Keep",
+        "sources": [
+          {
+            "rust_path": "/root/git/isolated/mycelium/crates/mycelium-fmt/src/lib.rs",
+            "rust_span": null,
+            "moved_items": []
+          }
+        ],
+        "rationale": "structure-preserving 1:1 (DN-109 §5.3-B v0 default: every emitted nodule keeps its source file's mod-tree position, no restructuring proposed)",
+        "safety": "Safe",
+        "api_surface_changed": false,
+        "identity_neutral": true,
+        "guarantee": "Declared"
+      }
+    ],
+    "idiom_choices": []
+  }
+}

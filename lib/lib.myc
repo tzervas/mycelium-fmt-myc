@@ -1,0 +1,215 @@
+// nodule: fmt
+// `mycelium-fmt` — **`mycfmt`**, the canonical formatter (M-364; M-142 grows up).
+//
+// Formatting is a **projection**: it rewrites a `.myc` source into one canonical textual normal form
+// and **never changes a definition's content-addressed identity** (RFC-0001 §4.6/§4.8; ADR-003). The
+// contract is `docs/spec/Mycfmt-Formatter-Contract.md`; this crate enacts it. Three invariants hold,
+// the first by a **runtime guard** (so an identity-changing format is never emitted) and all three by
+// test (`tests/`):
+//
+// - **C1 identity-preservation.** The formatted text re-parses to the **same surface AST** as the input
+//   (`parse(out) == parse(src)`), and its header re-parses equal (`parse_header`). Equivalent to
+//   content-hash preservation on the elaborable fragment (ADR-003). Checked at runtime: a mismatch is a
+//   refusal ([`FmtError::OutOfScope`]), never an emitted rewrite.
+// - **C2 idempotence.** `format(format(s)) == format(s)` byte-for-byte (the canonical form is a fixed
+//   point). Tested.
+// - **C3 header-preservation.** The DN-06 `// nodule:` marker + the M-359 `// @key:` structured header
+//   are re-emitted canonically (§4 order); a malformed header is an explicit [`FmtError::Header`], never
+//   a silent drop (G2/VR-5).
+//
+// **Never-silent (G2).** Unparsable input, a malformed header, or a construct outside the round-trip-safe
+// v0 scope (§7 — expressions that do not round-trip) is an **explicit error** with an exit code;
+// `mycfmt` **never** writes a partial or garbled rewrite.  Interior comments — previously refused in v0
+// — are now **preserved** by interleaving from the lexer comment table (M-690; Stage 2): leading
+// comment blocks above items are re-emitted verbatim; trailing `// …` comments on a fn body line or a
+// match arm are re-attached at the end of the rendered line.  A genuinely unplaceable comment is still
+// a [`FmtError::OutOfScope`] refusal — never a silent drop.
+// The load-bearing subtlety: the body is printed from the **raw parse** (`mycelium_l1::parse`), *not*
+// the ambient-resolved twin — so `default paradigm` / `with paradigm` are **preserved**, not expanded
+// (formatting ≠ "expand ambient").
+//
+// KC-3: this lives entirely above the kernel; the trusted base depends on nothing here.
+//
+// ## Comment placement (M-690, Stage 2 — Empirical)
+//
+// Comments are captured by `mycelium_l1::lexer::lex_with_comments` and anchored to items by
+// **source line number** matching against the token stream's `Spanned` positions:
+//
+// - **Leading doc-block**: one or more consecutive `// …` lines (not trailing) immediately before an
+//   item's first token are re-emitted verbatim above that item's canonical rendering.  A stray non-`@key`
+//   comment in the header region is now a leading doc-block on the first item (no longer refused).
+// - **Trailing fn-body comment**: a `// …` on the same source line as the `fn` keyword (i.e. the whole
+//   fn fits on one source line) is re-attached after the body expression on the rendered body line
+//   (`  body  // comment`).
+// - **Trailing match-arm comment**: a `// …` on the same source line as a `=>` token switches that
+//   match to **one-arm-per-line** rendering and places the comment after the arm's canonical expression.
+//   Non-nested matches only; a deeply nested match with arm comments is a [`FmtError::OutOfScope`] (not
+//   a silent drop — see FLAG below).
+//
+// **FLAG (anchoring sufficiency):** Token-position anchoring is sufficient for ALL tested placement
+// cases: leading doc-blocks, trailing fn-body comments, and trailing arm comments on non-nested
+// matches.  **Nested match arm trailing comments** (a `=>` line inside an outer match arm's body) are
+// out-of-scope: the `FatArrow` positions interleave in source order, making it impossible to assign
+// a comment to the correct arm purely from token positions (without AST line numbers from `ast.rs`
+// `Arm`).  Adding line numbers to `ast.rs`/`Arm` collides with the parallel HOF track (M-689
+// stage-1 sibling) and is serialized — flagged up rather than silently worked around.
+// @summary: best-effort transpilation via mycelium-transpile (M-873). Declared,
+// unvalidated — no Mycelium parser/typechecker confirms this output; see the
+// accompanying .gap.json for every construct this pass could not express.
+nodule fmt;
+
+// Declared: ambient Result type co-emit — oracle self-containment (G-α Rank-1 / L2-A). Type shape cites lib/std/result.myc (Ok/Err sum); combinators are NOT fabricated (VR-5/G2). Checker does not seed Result as prelude (unlike Bool/Unit unconditional, Vec conditional).
+type Result[A, E] = Ok(A) | Err(E);
+
+// Declared: ambient Option type co-emit — oracle self-containment (G-α Rank-1 / L2-A). Type shape cites lib/std/option.myc (Some/None sum); combinators are NOT fabricated (VR-5/G2). Checker does not seed Option as prelude (unlike Bool/Unit unconditional, Vec conditional).
+type Option[A] = Some(A) | None;
+
+// A conservative, **Declared** (not measured) multiplier on the input source length, used only to
+// *size the pre-render reservation* — never to bound the actual output. The readable layout can
+// expand a compact source somewhat (re-indentation, wrapped segments, re-emitted comments); this
+// multiplier is generous relative to observed expansion so the reservation stays a conservative
+// upper bound in practice, without being `Proven`.
+// Declared: co-emitted private const as zero-arg fn returning a BinLit — Mycelium has no const item production (`item` covers use/default/type/trait/impl/fn/object/lower/derive only); hand-port precedent `max_expr_depth()` (ORACLE-R1 A4; G2/VR-5: value from the Rust initializer or a known workspace-floor path, never fabricated). Use sites rewrite `NAME` → `NAME()`.
+fn RENDER_BYTES_PER_SRC_BYTE() => Binary{64} = 0b0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0100; // 4
+
+// The default target line width for the **readable** layout style (M-974; retuned M-976). Purely a
+// *presentation* heuristic: a construct whose compact single-line rendering, placed at its indent
+// column, would exceed this width is broken across lines (line breaks after commas / `|`); a shorter
+// construct stays inline. This is `Declared` — a readability threshold, not a proven bound. It is
+// **functionally inert**: the readable output re-parses to the *same* surface AST as the compact
+// output (the C1/C2 guards enforce it), so the width choice never changes any parse/elaborate/eval
+// behavior — machines ingest the flattened stream / full file either way.
+//
+// **Why 100 (M-976).** The earlier 88 was Black's Python default — an arbitrary import with a
+// misleading association for a value-semantics systems language. 100 is **`rustfmt`'s `max_width`
+// default** — the formatter the Mycelium Rust kernel itself already uses — so the threshold is
+// *grounded in the project's own toolchain*, not borrowed. It is overridable per call via
+// [`LayoutCfg::width`]; the shipped default is the single threshold (R0).
+// Declared: co-emitted private const as zero-arg fn returning a BinLit — Mycelium has no const item production (`item` covers use/default/type/trait/impl/fn/object/lower/derive only); hand-port precedent `max_expr_depth()` (ORACLE-R1 A4; G2/VR-5: value from the Rust initializer or a known workspace-floor path, never fabricated). Use sites rewrite `NAME` → `NAME()`.
+fn READABLE_WIDTH() => Binary{64} = 0b0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0110_0100; // 100
+
+// The layout style a format pass emits (M-974). Both styles are **identity-preserving projections**
+// (RFC-0001 §4.6/§4.8) — they differ only in *presentation*, never in the surface AST (C1). The
+// distinction is the inverse posture of `--flatten`: `Compact` keeps each item's body inline (the
+// original mycfmt-0 canonical form — the machine-leaning default retained for `examples/` and any
+// generic `.myc` root); `Readable` breaks long argument/field/variant segments across lines with
+// line breaks after commas for human-authored source (the `lib/std/*.myc` canonical — DN-82).
+type Style = Compact | Readable;
+
+impl Show[Style] for Style {
+  fn render(x: Style) => Bytes =
+    match x { Compact => "Compact", Readable => "Readable" };
+};
+
+fn eq_Style(a: Style, b: Style) => Binary{1} =
+  match a { Compact => match b { Compact => 0b1, _ => 0b0 }, Readable => match b { Readable => 0b1, _ => 0b0 } };
+
+// How a right-nested same-head chain (Cons/GLCons/TCons/bool_and/cat …) lays out its per-link
+// **inner** (non-recursive / leading) arguments under the Shape-Dispatched Readable rules (M-976 /
+// DN-82). BOTH styles keep the spine **flat** — every link at ONE fixed indent, the terminal on
+// its own line, all closers coalesced (R1/R5) — so both kill the deepening-Cons pyramid; they
+// differ ONLY in whether a fitting inner call stays inline.
+pub type SpineInner = InlineWhenFits | AlwaysExpand;
+
+impl Show[SpineInner] for SpineInner {
+  fn render(x: SpineInner) => Bytes =
+    match x { InlineWhenFits => "InlineWhenFits", AlwaysExpand => "AlwaysExpand" };
+};
+
+fn eq_SpineInner(a: SpineInner, b: SpineInner) => Binary{1} =
+  match a { InlineWhenFits => match b { InlineWhenFits => 0b1, _ => 0b0 }, AlwaysExpand => match b { AlwaysExpand => 0b1, _ => 0b0 } };
+
+// Presentation tunables for the readable layout (M-976 / DN-82). All fields are **presentation-only**
+// and identity-preserving (C1/C2) — a `LayoutCfg` never changes the surface AST, only whitespace.
+//
+// `width` defaults to [`READABLE_WIDTH`] (100 — rustfmt-aligned `Declared` threshold); it is the
+// SOLE inline-vs-break trigger (R0). `spine_inner` selects the house style for same-head chains
+// (R1). [`LayoutCfg::default`] is the compact default the `lib/std` canonical form uses.
+pub type LayoutCfg = LayoutCfg(Binary{64}, SpineInner);
+
+impl Show[LayoutCfg] for LayoutCfg {
+  fn render(x: LayoutCfg) => Bytes =
+    match x { LayoutCfg(p0, p1) => bytes_concat(bytes_concat(bytes_concat(bytes_concat("LayoutCfg(", render(p0)), ", "), render(p1)), ")") };
+};
+
+fn eq_LayoutCfg(a: LayoutCfg, b: LayoutCfg) => Binary{1} =
+    match a { LayoutCfg(p0, p1) => match b { LayoutCfg(q0, q1) => and(eq(p0, q0), eq_SpineInner(p1, q1)) } };
+
+// Declared: prelude-trait remapping — foreign-trait impl of a prelude-seeded single-param trait (DN-122 Ord3 MVP and/or DN-129 Default→Init); the `[<SelfTy>]` argument below is synthesized (Rust's zero-explicit-arg `impl Trait for T` never spells it — Mycelium stage-1 has no implicit Self slot, RFC-0019 §4.1).
+impl Init[LayoutCfg] for LayoutCfg {
+  fn init() => LayoutCfg = LayoutCfg(READABLE_WIDTH(), InlineWhenFits);
+};
+
+// A successful format result.
+//
+// `Default` is the empty result (no output, unchanged, no notes) — an additive constructor
+// convenience (M-644); the canonical "ends with one newline" output is produced by
+// [`format_source`], not by `Default`/`From`.
+pub type Formatted = Formatted(Bytes, Bool, Vec[Bytes]);
+
+fn show_vec_Bytes(xs: Vec[Bytes]) => Bytes =
+  match xs { Nil => "Nil", Cons(h, t) => bytes_concat("Cons(", bytes_concat(render(h), bytes_concat(", ", bytes_concat(show_vec_Bytes(t), ")")))) };
+
+impl Show[Formatted] for Formatted {
+  fn render(x: Formatted) => Bytes =
+    match x { Formatted(p0, p1, p2) => bytes_concat(bytes_concat(bytes_concat(bytes_concat(bytes_concat(bytes_concat("Formatted(", render(p0)), ", "), render(p1)), ", "), show_vec_Bytes(p2)), ")") };
+};
+
+fn eq_vec_Bytes(a: Vec[Bytes], b: Vec[Bytes]) => Binary{1} =
+  match a { Nil => match b { Nil => 0b1, Cons(_, _) => 0b0 }, Cons(ha, ta) => match b { Nil => 0b0, Cons(hb, tb) => and(bytes_eq(ha, hb), eq_vec_Bytes(ta, tb)) } };
+
+fn eq_Formatted(a: Formatted, b: Formatted) => Binary{1} =
+    match a { Formatted(p0, p1, p2) => match b { Formatted(q0, q1, q2) => and(and(bytes_eq(p0, q0), match p1 { True => match q1 { True => 0b1, False => 0b0 }, False => match q1 { True => 0b0, False => 0b1 } }), eq_vec_Bytes(p2, q2)) } };
+
+impl Init[Formatted] for Formatted {
+  fn init() => Formatted =
+    Formatted(init(), init(), Nil);
+};
+
+// A formatting refusal — never a partial rewrite (G2). Each maps to a CLI exit code.
+//
+// `#[non_exhaustive]`: new refusal kinds may be added without a breaking change — an external
+// exhaustive `match` must carry a `_` arm (M-644; additive — no variant removed).
+type FmtError = Parse(Bytes) | Header(Bytes) | OutOfScope(Bytes) | OutOfBudget(BudgetError);
+
+impl Show[FmtError] for FmtError {
+  fn render(x: FmtError) => Bytes =
+    match x { Parse(p0) => bytes_concat(bytes_concat("Parse(", render(p0)), ")"), Header(p0) => bytes_concat(bytes_concat("Header(", render(p0)), ")"), OutOfScope(p0) => bytes_concat(bytes_concat("OutOfScope(", render(p0)), ")"), OutOfBudget(p0) => bytes_concat(bytes_concat("OutOfBudget(", render(p0)), ")") };
+};
+
+fn eq_FmtError(a: FmtError, b: FmtError) => Binary{1} =
+  match a { Parse(p0) => match b { Parse(q0) => bytes_eq(p0, q0), _ => 0b0 }, Header(p0) => match b { Header(q0) => bytes_eq(p0, q0), _ => 0b0 }, OutOfScope(p0) => match b { OutOfScope(q0) => bytes_eq(p0, q0), _ => 0b0 }, OutOfBudget(p0) => match b { OutOfBudget(q0) => eq_BudgetError(p0, q0), _ => 0b0 } };
+
+impl FmtError {
+  // The CLI exit code for this refusal (contract §5).
+  fn exit_code(self: FmtError) => Binary{8} = match self { Parse(_) => 2, Header(_) => 3, OutOfScope(_) => 4, OutOfBudget(_) => 5 };
+};
+
+// Format `src` into its canonical form.
+//
+// `pin` is the optional `[toolchain].format` value from `mycelium-proj.toml` (a **hard pin**: a value
+// other than [`MYCFMT_VERSION`] is refused).
+//
+// # Errors
+// [`FmtError::Parse`] (unparsable), [`FmtError::Header`] (malformed header), or [`FmtError::OutOfScope`]
+// (a pin mismatch, an unplaceable comment, or a body that does not round-trip — identity could change).
+// On any error nothing is rewritten (G2).
+pub fn format_source(src: Bytes, pin: Option[Bytes]) => Result[Formatted, FmtError] = format_source_styled(src, pin, Compact);
+
+// Format `src` into its human-readable canonical form with an explicit [`LayoutCfg`] (M-976/DN-82):
+// same as [`format_source_readable`] but the caller picks the Shape-Dispatched Readable house-style
+// knob (`spine_inner`: compact `InlineWhenFits` default vs the `AlwaysExpand` house style) and the
+// break width. Both configurations are **presentation-only and functionally inert** — the output
+// re-parses to the same surface AST (the same C1/C2 guards apply), so the knob never changes any
+// parse/elaborate/eval behavior.
+//
+// # Errors
+// Identical to [`format_source_readable`].
+pub fn format_source_readable_cfg(src: Bytes, pin: Option[Bytes], cfg: LayoutCfg) => Result[Formatted, FmtError] = format_source_styled_cfg(src, pin, Readable, cfg);
+
+// Walk `expr`, find `Expr::Match` nodes (top-level, non-nested), and for each arm whose
+// source `FatArrow` line has a trailing comment, record it in `arm_trailing[item_idx][arm_idx]`.
+//
+// This is intentionally limited to the TOP-LEVEL match in `expr`'s body (non-nested).
+// A trailing arm comment inside a nested match's arm body is out of scope (FLAG in module doc).
+fn assign_arm_comments_for_fn(item_idx: Binary{64}, expr: Expr, remaining: Vec[(Binary{32}, Bytes)], arm_trailing: HashMap[Binary{64}, HashMap[Binary{64}, Bytes]], fat_arrow_lines: Vec[Binary{32}]) => (Vec[(Binary{32}, Bytes)], HashMap[Binary{64}, HashMap[Binary{64}, Bytes]], Result[Unit, FmtError]) = (remaining, arm_trailing, collect_match_arm_comments(item_idx, expr, remaining, arm_trailing, fat_arrow_lines, 0));

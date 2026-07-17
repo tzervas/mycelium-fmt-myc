@@ -1,0 +1,56 @@
+// nodule: fmt.bin_kw.mycfmt
+// `mycfmt` — the canonical formatter CLI (M-364; contract `docs/spec/Mycfmt-Formatter-Contract.md`).
+//
+// Formatting is an **identity-preserving projection** (RFC-0001 §4.6/§4.8; ADR-003): it never changes a
+// definition's content-addressed identity, and it **never writes a partial or garbled rewrite** (G2) —
+// any refusal leaves the file exactly as it was.
+//
+// ```text
+// mycfmt [--check | --write] [--flatten | --readable [--expand-spine]] [--explain] [--config <mycelium-proj.toml>] <file.myc | ->...
+// ```
+//
+// Exit codes (contract §5): 0 ok · 1 `--check` would reformat · 2 parse error · 3 header error ·
+// 4 out-of-scope refusal (incl. a `[toolchain].format` pin mismatch) · 64 usage · 66 I/O.
+//
+// **`--flatten`** emits the single-line human↔stream form (M-819; DN-57 §2): the whole nodule on one
+// line, components separated by `; `.  The mandatory `;` terminator (M-818) makes this unambiguous.
+// Comments and structured-header metadata are stripped (not part of the surface AST).  The output
+// re-parses to the same surface AST as the canonical form (`Empirical` round-trip guarantee).
+// `--flatten` is incompatible with `--write` (the stream form is for stdout / pipe use).
+//
+// **`--readable`** emits the human-readable multi-line form (M-974; DN-82) — the inverse posture of
+// `--flatten`: long argument / field / variant / arm segments break across lines with line breaks
+// after commas; short segments stay inline. It preserves comments and the structured header (like the
+// default form) and is **presentation-only, functionally inert** (same surface AST — C1/C2). It is the
+// canonical form the `myc-fmt` gate enforces for the human-authored stdlib (`lib/std/*.myc`).
+// `--readable` and `--flatten` are mutually exclusive (opposite layout postures).
+//
+// **`--expand-spine`** (Shape-Dispatched Readable house-style knob, M-976; requires `--readable`)
+// selects the "expanded" spine style: a right-nested same-head chain (Cons/GLCons/bool_and/cat …)
+// STILL renders as a flat spine (each link at one indent, no pyramid), but every inner nested call
+// is broken onto its own lines (block-indented) instead of staying inline-when-it-fits. Both are
+// behavior-neutral (C1/C2); the default (omit the flag) is the compact `InlineWhenFits` style.
+// @summary: best-effort transpilation via mycelium-transpile (M-873). Declared,
+// unvalidated — no Mycelium parser/typechecker confirms this output; see the
+// accompanying .gap.json for every construct this pass could not express.
+nodule fmt.bin_kw.mycfmt;
+
+// Declared: ambient Result type co-emit — oracle self-containment (G-α Rank-1 / L2-A). Type shape cites lib/std/result.myc (Ok/Err sum); combinators are NOT fabricated (VR-5/G2). Checker does not seed Result as prelude (unlike Bool/Unit unconditional, Vec conditional).
+type Result[A, E] = Ok(A) | Err(E);
+
+// Declared: ambient Option type co-emit — oracle self-containment (G-α Rank-1 / L2-A). Type shape cites lib/std/option.myc (Some/None sum); combinators are NOT fabricated (VR-5/G2). Checker does not seed Option as prelude (unlike Bool/Unit unconditional, Vec conditional).
+type Option[A] = Some(A) | None;
+
+// EXPLAIN (L2-B/DN-124): Declared co-include of batch-sibling type surface (homes: fmt) so single-file oracle is self-contained — not a language `use` identity, not a short-form path collapse (M-1084 full path retained as provenance). Transitive type deps in the same batch are co-included. G2/VR-5.
+type FmtError = Parse(Bytes) | Header(Bytes) | OutOfScope(Bytes) | OutOfBudget(BudgetError);
+type Formatted = Formatted(Bytes, Bool, Vec[Bytes]);
+type SpineInner = InlineWhenFits | AlwaysExpand;
+type LayoutCfg = LayoutCfg(Binary{64}, SpineInner);
+// EXPLAIN (G-α L2-B/DN-124): Declared co-include of batch-sibling free-fn surface (homes: fmt) so single-file oracle is self-contained — not a language `use` identity, not a short-form path collapse (M-1084 full path retained as provenance). Type deps on the fn line are co-included above when present in-batch. Body free-fn/method callees may still residual-poison oracle (FLAG, not silent). G2/VR-5.
+fn format_source(src: Bytes, pin: Option[Bytes]) => Result[Formatted, FmtError] = format_source_styled(src, pin, Compact);
+fn format_source_readable_cfg(src: Bytes, pin: Option[Bytes], cfg: LayoutCfg) => Result[Formatted, FmtError] = format_source_styled_cfg(src, pin, Readable, cfg);
+
+type Mode = Stdout | Check | Write;
+
+fn eq_Mode(a: Mode, b: Mode) => Binary{1} =
+  match a { Stdout => match b { Stdout => 0b1, _ => 0b0 }, Check => match b { Check => 0b1, _ => 0b0 }, Write => match b { Write => 0b1, _ => 0b0 } };
